@@ -3,7 +3,7 @@
  * Copyright (c) 2019 Falko Schumann
  */
 
-package de.muspellheim.commons;
+package de.muspellheim.commons.util;
 
 import java.util.*;
 import java.util.regex.*;

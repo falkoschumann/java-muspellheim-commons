@@ -3,24 +3,27 @@
  * Copyright (c) 2019 Falko Schumann
  */
 
-package de.muspellheim.commons;
+package de.muspellheim.commons.util;
 
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.function.*;
 
 /**
- * An action is an event without message.
+ * An event send a message to handlers.
+ *
+ * @param <T> the message type.
  */
-public class Action {
+public class Event<T> {
 
-    private final List<Runnable> handlers = new CopyOnWriteArrayList<>();
+    private final List<Consumer<T>> handlers = new CopyOnWriteArrayList<>();
 
     /**
      * Adds a handler to notify it of sending events.
      *
      * @param handler the handler to add.
      */
-    public void addHandler(Runnable handler) {
+    public void addHandler(Consumer<T> handler) {
         Objects.requireNonNull(handler, "handler");
         handlers.add(handler);
     }
@@ -30,18 +33,20 @@ public class Action {
      *
      * @param handler the handler to remove.
      */
-    public void removeHandler(Runnable handler) {
+    public void removeHandler(Consumer<T> handler) {
         Objects.requireNonNull(handler, "handler");
         handlers.remove(handler);
     }
 
     /**
-     * Trigger the action to all added handlers.
+     * Sends a message to all added handlers.
+     *
+     * @param message the message to send.
      */
-    public void trigger() {
+    public void send(T message) {
         handlers.forEach(handler -> {
             try {
-                handler.run();
+                handler.accept(message);
             } catch (Exception e) {
                 Thread.currentThread().getUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
             }

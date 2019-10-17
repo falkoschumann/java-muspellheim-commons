@@ -3,32 +3,30 @@
  * Copyright (c) 2019 Falko Schumann
  */
 
-package de.muspellheim.commons;
-
-import java.util.function.*;
+package de.muspellheim.commons.util;
 
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class EventTests {
+class ActionTests {
 
-    private String message;
+    private boolean triggered;
     private Throwable exception;
 
     @Test
-    void messageSend() {
+    void actionTriggered() {
         // Given
         Thread.currentThread().setUncaughtExceptionHandler((t, e) -> exception = e);
-        Event<String> event = new Event<>();
-        event.addHandler(m -> message = m);
+        Action action = new Action();
+        action.addHandler(() -> triggered = true);
 
         // When
-        event.send("Foo");
+        action.trigger();
 
         // Then
         assertAll(
-            () -> assertEquals("Foo", message, "message send"),
+            () -> assertTrue(triggered, "action triggered"),
             () -> assertNull(exception, "no exception thrown")
         );
     }
@@ -37,18 +35,18 @@ class EventTests {
     void handlerThrowsException() {
         // Given
         Thread.currentThread().setUncaughtExceptionHandler((t, e) -> exception = e);
-        Event<String> event = new Event<>();
-        event.addHandler(m -> {
+        Action action = new Action();
+        action.addHandler(() -> {
             throw new RuntimeException("Foobar");
         });
-        event.addHandler(m -> message = m);
+        action.addHandler(() -> triggered = true);
 
         // When
-        event.send("Foo");
+        action.trigger();
 
         // Then
         assertAll(
-            () -> assertEquals("Foo", message, "message send"),
+            () -> assertTrue(triggered, "action triggered"),
             () -> assertEquals("Foobar", exception.getMessage(), "exception thrown")
         );
     }
@@ -57,17 +55,17 @@ class EventTests {
     void handlerRemoved() {
         // Given
         Thread.currentThread().setUncaughtExceptionHandler((t, e) -> exception = e);
-        Event<String> event = new Event<>();
-        Consumer<String> handler = m -> message = m;
-        event.addHandler(handler);
+        Action action = new Action();
+        Runnable handler = () -> triggered = true;
+        action.addHandler(handler);
 
         // When
-        event.removeHandler(handler);
-        event.send("Foo");
+        action.removeHandler(handler);
+        action.trigger();
 
         // Then
         assertAll(
-            () -> assertNull(message, "no message send"),
+            () -> assertFalse(triggered, "no action triggered"),
             () -> assertNull(exception, "no exception thrown")
         );
     }
