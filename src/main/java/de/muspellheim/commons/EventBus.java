@@ -32,7 +32,7 @@ public class EventBus {
 
     private static final EventBus INSTANCE = new EventBus();
 
-    private final Map<Class<?>, List<Consumer>> typedSubscribers = new ConcurrentHashMap<>();
+    private final ConcurrentMap<Class<?>, List<Consumer>> typedSubscribers = new ConcurrentHashMap<>();
 
     /**
      * Get the default event bus, can be used as application wide singleton.
@@ -54,17 +54,8 @@ public class EventBus {
         Objects.requireNonNull(eventType, "eventType");
         Objects.requireNonNull(subscriber, "subscriber");
 
-        List<Consumer> subscribers = getOrCreateSubscribers(eventType);
+        List<Consumer> subscribers = typedSubscribers.computeIfAbsent(eventType, t -> new CopyOnWriteArrayList<>());
         subscribers.add(subscriber);
-    }
-
-    private synchronized <T> List<Consumer> getOrCreateSubscribers(Class<T> eventType) {
-        List<Consumer> subscribers = typedSubscribers.get(eventType);
-        if (subscribers == null) {
-            subscribers = new CopyOnWriteArrayList<>();
-            typedSubscribers.put(eventType, subscribers);
-        }
-        return subscribers;
     }
 
     /**
