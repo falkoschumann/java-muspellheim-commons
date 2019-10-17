@@ -3,6 +3,7 @@ plugins {
     id 'checkstyle'
     id 'jacoco'
     id "com.github.spotbugs" version "2.0.0"
+    id "io.freefair.lombok" version "4.1.2"
 }
 
 version = '1.0.0'
@@ -18,9 +19,6 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
-
-    compileOnly 'org.projectlombok:lombok:1.18.10'
-    annotationProcessor 'org.projectlombok:lombok:1.18.10'
 }
 
 jar {
@@ -37,6 +35,11 @@ test {
         events 'passed', 'skipped', 'failed'
         exceptionFormat = 'full'
     }
+}
+
+javadoc {
+    title = "Muspellheim Commons v${project.version}"
+    options.links += 'https://docs.oracle.com/javase/8/docs/api/'
 }
 
 checkstyle {
