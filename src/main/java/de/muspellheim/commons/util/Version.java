@@ -64,7 +64,9 @@ public class Version implements Comparable<Version> {
     }
 
     @Override
-    public int compareTo(@NonNull Version o) {
+    public int compareTo(Version o) {
+        Objects.requireNonNull(o, "o");
+
         if (this == o) {
             return 0;
         }
