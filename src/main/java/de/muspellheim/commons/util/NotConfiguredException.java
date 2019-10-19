@@ -5,6 +5,9 @@
 
 package de.muspellheim.commons.util;
 
+/**
+ * Thrown if a key has no value configured.
+ */
 public class NotConfiguredException extends ConfigurationException {
 
     public NotConfiguredException(String message) {

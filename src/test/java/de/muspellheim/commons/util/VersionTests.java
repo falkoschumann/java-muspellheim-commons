@@ -53,7 +53,7 @@ class VersionTests {
         Exception e = assertThrows(IllegalArgumentException.class, () -> Version.parse("1.2"));
 
         // Then
-        assertEquals("text is not a version", e.getMessage());
+        assertEquals("text is not a version string: 1.2", e.getMessage());
     }
 
     @Test

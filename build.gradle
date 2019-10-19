@@ -41,6 +41,7 @@ javadoc {
     title = "Muspellheim Commons v${project.version}"
     options.links += 'https://docs.oracle.com/javase/8/docs/api/'
 }
+build.dependsOn += javadoc
 
 checkstyle {
     toolVersion '8.24'

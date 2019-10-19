@@ -23,26 +23,70 @@ public class Version implements Comparable<Version> {
         + "(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?"
         + "(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
 
+    /**
+     * A new major version indicates incombatible changes.
+     *
+     * @return the major version of this version.
+     */
     int major;
 
+    /**
+     * A new minor version indicates combatible changes.
+     *
+     * @return the minor version of this version.
+     */
     int minor;
 
+    /**
+     * A new patch version indicates changes are only bugfixes.
+     *
+     * @return the patch version of this version.
+     */
     int patch;
 
+    /**
+     * Mark a pre-release.
+     * <p>
+     * A version without pre-release is newer than with.
+     *
+     * @return the pre-release of this version.
+     */
     @With
     String preRelease;
 
+    /**
+     * Additional build metadata.
+     * <p>
+     * Ignored when compare.
+     *
+     * @return the build metadata of this version.
+     */
     @With
     String buildMetadata;
 
+    /**
+     * Creates a simple version.
+     *
+     * @param major the major version.
+     * @param minor the minor version.
+     * @param patch the patch version.
+     * @return the version.
+     */
     public static Version of(int major, int minor, int patch) {
         return new Version(major, minor, patch, null, null);
     }
 
+    /**
+     * Parse text as version string.
+     *
+     * @param text a version string.
+     * @return the version.
+     * @throws IllegalArgumentException if text is not a version string.
+     */
     public static Version parse(@NonNull String text) {
         Matcher matcher = PATTERN.matcher(text);
         if (!matcher.matches()) {
-            throw new IllegalArgumentException("text is not a version");
+            throw new IllegalArgumentException("text is not a version string: " + text);
         }
 
         return new Version(

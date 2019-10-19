@@ -5,6 +5,9 @@
 
 package de.muspellheim.commons.util;
 
+/**
+ * Thrown if an unspecified configuration exception occurred.
+ */
 public class ConfigurationException extends Exception {
 
     public ConfigurationException(String message) {
