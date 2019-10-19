@@ -109,6 +109,9 @@
 
         <!-- Imports -->
         <module name="CustomImportOrder"/>
+        <module name="IllegalImport">
+            <property name="illegalPkgs" value="sun, javafx"/>
+        </module>
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>
 
