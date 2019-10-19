@@ -9,6 +9,8 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.*;
 
+import lombok.*;
+
 /**
  * An event send a message to handlers.
  *
@@ -23,8 +25,7 @@ public class Event<T> {
      *
      * @param handler the handler to add.
      */
-    public void addHandler(Consumer<T> handler) {
-        Objects.requireNonNull(handler, "handler");
+    public void addHandler(@NonNull Consumer<T> handler) {
         handlers.add(handler);
     }
 
@@ -33,8 +34,7 @@ public class Event<T> {
      *
      * @param handler the handler to remove.
      */
-    public void removeHandler(Consumer<T> handler) {
-        Objects.requireNonNull(handler, "handler");
+    public void removeHandler(@NonNull Consumer<T> handler) {
         handlers.remove(handler);
     }
 
@@ -43,7 +43,7 @@ public class Event<T> {
      *
      * @param message the message to send.
      */
-    public void send(T message) {
+    public void send(@NonNull T message) {
         handlers.forEach(handler -> {
             try {
                 handler.accept(message);

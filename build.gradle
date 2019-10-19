@@ -76,3 +76,7 @@ tasks.withType(com.github.spotbugs.SpotBugsTask) {
         html.enabled = true
     }
 }
+
+lombok {
+    config['lombok.nonNull.exceptionType'] = 'Jdk'
+}

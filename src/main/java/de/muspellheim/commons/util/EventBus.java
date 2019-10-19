@@ -9,6 +9,8 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.*;
 
+import lombok.*;
+
 /**
  * Simple event bus implementation.
  * <p>
@@ -50,10 +52,7 @@ public class EventBus {
      * @param subscriber the subscriber which will consume the events.
      * @param <T>        the event type class.
      */
-    public <T> void subscribe(Class<? extends T> eventType, Consumer<T> subscriber) {
-        Objects.requireNonNull(eventType, "eventType");
-        Objects.requireNonNull(subscriber, "subscriber");
-
+    public <T> void subscribe(@NonNull Class<? extends T> eventType, @NonNull Consumer<T> subscriber) {
         List<Consumer> subscribers = typedSubscribers.computeIfAbsent(eventType, t -> new CopyOnWriteArrayList<>());
         subscribers.add(subscriber);
     }
@@ -63,9 +62,7 @@ public class EventBus {
      *
      * @param subscriber the subscriber to unsubscribe.
      */
-    public void unsubscribe(Consumer<?> subscriber) {
-        Objects.requireNonNull(subscriber, "subscriber");
-
+    public void unsubscribe(@NonNull Consumer<?> subscriber) {
         typedSubscribers.values().forEach(subscribers -> subscribers.remove(subscriber));
     }
 
@@ -76,10 +73,7 @@ public class EventBus {
      * @param subscriber the subscriber to unsubscribe.
      * @param <T>        the event type class.
      */
-    public <T> void unsubscribe(Class<? extends T> eventType, Consumer<T> subscriber) {
-        Objects.requireNonNull(eventType, "eventType");
-        Objects.requireNonNull(subscriber, "subscriber");
-
+    public <T> void unsubscribe(@NonNull Class<? extends T> eventType, @NonNull Consumer<T> subscriber) {
         typedSubscribers.keySet().stream()
             .filter(eventType::isAssignableFrom)
             .map(typedSubscribers::get)
@@ -94,9 +88,7 @@ public class EventBus {
      *
      * @param event the event.
      */
-    public void publish(Object event) {
-        Objects.requireNonNull(event, "event");
-
+    public void publish(@NonNull Object event) {
         Class<?> eventType = event.getClass();
         typedSubscribers.keySet().stream()
             .filter(type -> type.isAssignableFrom(eventType))

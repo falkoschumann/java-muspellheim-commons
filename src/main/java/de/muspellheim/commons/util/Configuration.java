@@ -10,6 +10,11 @@ import java.nio.charset.*;
 import java.nio.file.*;
 import java.util.*;
 
+import lombok.*;
+
+/**
+ * TODO Dokumentieren
+ */
 public class Configuration {
 
     private static final Charset CHARSET = StandardCharsets.ISO_8859_1;
@@ -20,12 +25,12 @@ public class Configuration {
         this(new Properties());
     }
 
-    public Configuration(Properties properties) {
-        this.properties = Objects.requireNonNull(properties, "properties");
+    public Configuration(@NonNull Properties properties) {
+        this.properties = properties;
     }
 
-    public void loadDefaults(String basename) throws ConfigurationException {
-        String filename = String.format("/%s.properties", Objects.requireNonNull(basename, "basename"));
+    public void loadDefaults(@NonNull String basename) throws ConfigurationException {
+        String filename = String.format("/%s.properties", basename);
         InputStream in = getClass().getResourceAsStream(filename);
         if (in == null) {
             throw new ConfigurationException("Defaults not exists");
@@ -38,14 +43,14 @@ public class Configuration {
         }
     }
 
-    public void load(String basename) throws ConfigurationException {
-        String filename = String.format("%s.properties", Objects.requireNonNull(basename, "basename"));
+    public void load(@NonNull String basename) throws ConfigurationException {
+        String filename = String.format("%s.properties", basename);
         Path propertiesFile = Paths.get(filename);
         load(propertiesFile);
     }
 
-    public void load(Path propertiesFile) throws ConfigurationException {
-        try (Reader reader = Files.newBufferedReader(Objects.requireNonNull(propertiesFile, "propertiesFile"), CHARSET)) {
+    public void load(@NonNull Path propertiesFile) throws ConfigurationException {
+        try (Reader reader = Files.newBufferedReader(propertiesFile, CHARSET)) {
             properties.load(reader);
         } catch (IOException e) {
             throw new ConfigurationException("Configuration could not load", e);

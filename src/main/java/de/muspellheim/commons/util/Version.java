@@ -5,7 +5,6 @@
 
 package de.muspellheim.commons.util;
 
-import java.util.*;
 import java.util.regex.*;
 
 import lombok.*;
@@ -40,8 +39,7 @@ public class Version implements Comparable<Version> {
         return new Version(major, minor, patch, null, null);
     }
 
-    public static Version parse(String text) {
-        Objects.requireNonNull(text, "text");
+    public static Version parse(@NonNull String text) {
         Matcher matcher = PATTERN.matcher(text);
         if (!matcher.matches()) {
             throw new IllegalArgumentException("text is not a version");
@@ -64,9 +62,7 @@ public class Version implements Comparable<Version> {
     }
 
     @Override
-    public int compareTo(Version o) {
-        Objects.requireNonNull(o, "o");
-
+    public int compareTo(@NonNull Version o) {
         if (this == o) {
             return 0;
         }

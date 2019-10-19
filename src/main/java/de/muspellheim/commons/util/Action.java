@@ -8,6 +8,8 @@ package de.muspellheim.commons.util;
 import java.util.*;
 import java.util.concurrent.*;
 
+import lombok.*;
+
 /**
  * An action is an event without message.
  */
@@ -20,8 +22,7 @@ public class Action {
      *
      * @param handler the handler to add.
      */
-    public void addHandler(Runnable handler) {
-        Objects.requireNonNull(handler, "handler");
+    public void addHandler(@NonNull Runnable handler) {
         handlers.add(handler);
     }
 
@@ -30,8 +31,7 @@ public class Action {
      *
      * @param handler the handler to remove.
      */
-    public void removeHandler(Runnable handler) {
-        Objects.requireNonNull(handler, "handler");
+    public void removeHandler(@NonNull Runnable handler) {
         handlers.remove(handler);
     }
 

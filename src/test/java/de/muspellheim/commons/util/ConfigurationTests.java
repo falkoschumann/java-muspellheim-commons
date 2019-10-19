@@ -41,6 +41,27 @@ class ConfigurationTests {
     }
 
     @Test
+    void loaded() throws Exception {
+        // Given
+        Configuration config = new Configuration();
+        config.load("src/test/resources/config-test");
+
+        // When
+        String var1 = config.getString("var1");
+        int var2 = config.getInt("var2");
+        boolean var3 = config.getBoolean("var3");
+        double var4 = config.getDouble("var4");
+
+        // Then
+        assertAll(
+            () -> assertEquals("foo", var1, "string"),
+            () -> assertEquals(42, var2, "int"),
+            () -> assertTrue(var3, "boolean"),
+            () -> assertEquals(0.815, var4, "double")
+        );
+    }
+
+    @Test
     void defaultsNotExists() throws Exception {
         // Given
         Configuration config = new Configuration();
