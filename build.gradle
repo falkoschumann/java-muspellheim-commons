@@ -84,27 +84,27 @@ tasks.withType(com.github.spotbugs.SpotBugsTask) {
     }
 }
 
-task printSpotbugsReportMain() {
+task printSpotBugsReportMain() {
     doLast {
-        def report = Paths.get("build/reports/spotbugs/main.text")
-        if (Files.exists(report)) {
-            def lines = Files.readAllLines(report)
-            lines.forEach { l -> println(l) }
-        }
+        printSpotBugsReport('main')
     }
 }
-spotbugsMain.finalizedBy printSpotbugsReportMain
+spotbugsMain.finalizedBy printSpotBugsReportMain
 
-task printSpotbugsReportTest() {
+task printSpotBugsReportTest() {
     doLast {
-        def report = Paths.get("build/reports/spotbugs/test.text")
-        if (Files.exists(report)) {
-            def lines = Files.readAllLines(report)
-            lines.forEach { l -> println(l) }
-        }
+        printSpotBugsReport('test')
     }
 }
-spotbugsTest.finalizedBy printSpotbugsReportTest
+spotbugsTest.finalizedBy printSpotBugsReportTest
+
+static def printSpotBugsReport(String sourceSet) {
+    def report = Paths.get("build/reports/spotbugs/${sourceSet}.text")
+    if (Files.exists(report)) {
+        def lines = Files.readAllLines(report)
+        lines.forEach { l -> println(l) }
+    }
+}
 
 lombok {
     config['lombok.nonNull.exceptionType'] = 'Jdk'
