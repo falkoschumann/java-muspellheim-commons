@@ -110,6 +110,15 @@ check.dependsOn += [jacocoTestCoverageVerification, jacocoTestReport]
 // Bintray
 // ###################################################################
 
+ext {
+    if (!project.hasProperty('bintrayUser')) {
+        bintrayUser = 'bintray_user'
+    }
+    if (!project.hasProperty('bintrayKey')) {
+        bintrayKey = 'bintray_key'
+    }
+}
+
 bintray {
     user = bintrayUser
     key = bintrayKey
