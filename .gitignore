@@ -1,6 +1,7 @@
 # Gradle
 .gradle/
 build/
+build.gradle
 lombok.config
 
 # IntelliJ IDEA
