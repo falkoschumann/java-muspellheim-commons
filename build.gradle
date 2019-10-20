@@ -1,3 +1,5 @@
+import com.github.spotbugs.SpotBugsTask
+
 import java.nio.file.Files
 import java.nio.file.Paths
 
@@ -5,8 +7,8 @@ plugins {
     id 'java-library'
     id 'checkstyle'
     id 'jacoco'
-    id "com.github.spotbugs" version "2.0.0"
-    id "io.freefair.lombok" version "4.1.2"
+    id 'com.github.spotbugs' version '2.0.0'
+    id 'io.freefair.lombok' version '4.1.2'
 }
 
 version = '1.0.0-beta'
@@ -25,6 +27,10 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
 }
+
+// ###################################################################
+// Java Library
+// ###################################################################
 
 jar {
     manifest {
@@ -46,13 +52,22 @@ javadoc {
     title = "Muspellheim Commons v${project.version}"
     options.links += 'https://docs.oracle.com/javase/8/docs/api/'
     options.overview = file('src/main/docs/overview.html')
+    options.noTimestamp = true
     destinationDir = file('docs')
 }
 build.dependsOn += javadoc
 
+// ###################################################################
+// Checkstyle
+// ###################################################################
+
 checkstyle {
     toolVersion '8.24'
 }
+
+// ###################################################################
+// Jacoco
+// ###################################################################
 
 jacocoTestCoverageVerification {
     violationRules {
@@ -74,11 +89,15 @@ jacocoTestCoverageVerification {
 }
 check.dependsOn += [jacocoTestCoverageVerification, jacocoTestReport]
 
+// ###################################################################
+// SpotBugs
+// ###################################################################
+
 spotbugs {
     excludeFilter = file("$rootDir/config/spotbugs/excludeFilter.xml")
 }
 
-tasks.withType(com.github.spotbugs.SpotBugsTask) {
+tasks.withType(SpotBugsTask) {
     reports {
         xml.enabled = false
         html.enabled = false
@@ -107,6 +126,10 @@ static def printSpotBugsReport(String sourceSet) {
         lines.forEach { l -> println(l) }
     }
 }
+
+// ###################################################################
+// Lombok
+// ###################################################################
 
 lombok {
     config['lombok.nonNull.exceptionType'] = 'Jdk'
