@@ -1,3 +1,6 @@
+import java.nio.file.Files
+import java.nio.file.Paths
+
 plugins {
     id 'java-library'
     id 'checkstyle'
@@ -76,9 +79,32 @@ spotbugs {
 tasks.withType(com.github.spotbugs.SpotBugsTask) {
     reports {
         xml.enabled = false
-        html.enabled = true
+        html.enabled = false
+        text.enabled = true
     }
 }
+
+task printSpotbugsReportMain() {
+    doLast {
+        def report = Paths.get("build/reports/spotbugs/main.text")
+        if (Files.exists(report)) {
+            def lines = Files.readAllLines(report)
+            lines.forEach { l -> println(l) }
+        }
+    }
+}
+spotbugsMain.finalizedBy printSpotbugsReportMain
+
+task printSpotbugsReportTest() {
+    doLast {
+        def report = Paths.get("build/reports/spotbugs/test.text")
+        if (Files.exists(report)) {
+            def lines = Files.readAllLines(report)
+            lines.forEach { l -> println(l) }
+        }
+    }
+}
+spotbugsTest.finalizedBy printSpotbugsReportTest
 
 lombok {
     config['lombok.nonNull.exceptionType'] = 'Jdk'
