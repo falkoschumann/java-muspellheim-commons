@@ -24,11 +24,7 @@ Add dependency:
 Or if you use PostgreSQL also:
 
     implementation 'de.muspellheim:muspellheim-commons:1.0.0'
-    runtimeOnly('de.muspellheim:muspellheim-commons:1.0.0') {
-        capabilities {
-            requireCapability('de.muspellheim:muspellheim-commons-postgresql-support')
-        }
-    }
+    runtimeOnly 'org.postgresql:postgresql:42.2.8'
 
 ### Maven
 
