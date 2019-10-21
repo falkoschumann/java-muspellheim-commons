@@ -14,25 +14,33 @@ plugins {
 }
 
 version = '1.0.0-beta'
+
+// ###################################################################
+// Java Library
+// ###################################################################
+
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 compileJava.options.encoding = 'UTF-8'
 compileTestJava.options.encoding = 'UTF-8'
+
+java {
+    registerFeature("postgresqlSupport") {
+        usingSourceSet(sourceSets.main)
+    }
+}
 
 repositories {
     jcenter()
 }
 
 dependencies {
-    compile 'org.postgresql:postgresql:42.2.8'
+    postgresqlSupportImplementation 'org.postgresql:postgresql:42.2.8'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
+    testRuntimeOnly 'org.postgresql:postgresql:42.2.8'
 }
-
-// ###################################################################
-// Java Library
-// ###################################################################
 
 jar {
     manifest {
@@ -53,7 +61,7 @@ test {
 javadoc {
     title = "Muspellheim Commons v${project.version}"
     options.links += 'https://docs.oracle.com/javase/8/docs/api/'
-    options.overview = file('src/main/docs/overview.html')
+    options.overview = file('src/main/javadoc/overview.html')
     options.noTimestamp = true
     destinationDir = file('docs')
 }
