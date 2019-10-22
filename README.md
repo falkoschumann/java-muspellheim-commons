@@ -1,5 +1,5 @@
 [![Bintray](https://img.shields.io/bintray/v/falkoschumann/maven/muspellheim-commons)](https://bintray.com/falkoschumann/maven/muspellheim-commons)
-[![Build Status](https://travis-ci.org/falkoschumann/java-muspellheim-commons.svg?branch=master)](https://travis-ci.org/falkoschumann/java-muspellheim-commons)
+[![Build Status](https://travis-ci.org/falkoschumann/java-muspellheim-commons.png?branch=master)](https://travis-ci.org/falkoschumann/java-muspellheim-commons)
 
 # Muspellheim Commons
 
