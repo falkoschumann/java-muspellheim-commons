@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="https://github.com/spotbugs/filter/3.0.0 https://raw.githubusercontent.com/spotbugs/spotbugs/3.1.0/spotbugs/etc/findbugsfilter.xsd">
 
-    <!-- Setter: Zur Performance-Optimierung ist String-Vergleich mit == und != erlaubt. -->
+    <!-- Setter: Allow string equality with == and != for performance reason. -->
     <Match>
         <Method name="~set.*"/>
         <Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ"/>
@@ -12,6 +12,12 @@
     <Match>
         <Method name="~with.*"/>
         <Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ"/>
+    </Match>
+
+    <!-- ResultSet: ignore false positive -->
+    <Match>
+        <Class name="de.muspellheim.commons.util.PostgresDatabaseTests"/>
+        <Bug pattern="OBL_UNSATISFIED_OBLIGATION"/>
     </Match>
 
 </FindBugsFilter>

@@ -24,15 +24,15 @@ class PostgresDatabaseTests {
 
         // When
         DataSource dataSource = database.getDataSource();
-
-        // THen
+        boolean found;
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM (VALUES ('Foo'), ('Bar')) AS table1;")) {
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    assertTrue(resultSet.next(), "Result found");
-                }
+                ResultSet resultSet = statement.executeQuery();
+                found = resultSet.next();
             }
         }
+        // Then
+        assertTrue(found, "Result found");
     }
 
 }
