@@ -3,7 +3,7 @@
 
 # Muspellheim Commons
 
-Bundles common classes for develop Java apps.
+Bundles common classes for developing Java apps.
 
 ## Installation
 
@@ -47,6 +47,19 @@ Add dependency:
         <groupId>de.muspellheim</groupId>
         <artifactId>muspellheim-commons</artifactId>
         <version>1.0.0</version>
+    </dependency>
+
+Or if you use PostgreSQL also:
+
+    <dependency>
+        <groupId>de.muspellheim</groupId>
+        <artifactId>muspellheim-commons</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>42.2.8</version>
     </dependency>
 
 ## Usage
