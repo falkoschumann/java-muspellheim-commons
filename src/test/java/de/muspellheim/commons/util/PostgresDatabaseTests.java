@@ -27,7 +27,10 @@ class PostgresDatabaseTests {
 
         // THen
         try (Connection connection = dataSource.getConnection()) {
-            assertNotNull(connection);
+            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM (VALUES ('Foo'), ('Bar')) AS table1;")) {
+                ResultSet resultSet = statement.executeQuery();
+                assertTrue(resultSet.next(), "Result found");
+            }
         }
     }
 
