@@ -16,11 +16,11 @@
 
     <!-- ResultSet: ignore false positive -->
     <Match>
-        <Class name="de.muspellheim.commons.util.PostgresDatabaseTests"/>
+        <Class name="de.muspellheim.commons.sql.PostgresDatabaseTests"/>
         <Bug pattern="OBL_UNSATISFIED_OBLIGATION"/>
     </Match>
     <Match>
-        <Class name="de.muspellheim.commons.util.PostgresDatabaseTests"/>
+        <Class name="de.muspellheim.commons.sql.PostgresDatabaseTests"/>
         <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE"/>
     </Match>
 

@@ -3,12 +3,11 @@
  * Copyright (c) 2019 Falko Schumann
  */
 
-package de.muspellheim.commons.util;
+package de.muspellheim.commons.sql;
 
 import java.sql.*;
 import javax.sql.*;
 
-import de.muspellheim.commons.sql.*;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
