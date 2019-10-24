@@ -10,15 +10,14 @@ import java.time.*;
 import lombok.*;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
+@SuppressWarnings("checkstyle:VisibilityModifier")
 public class ExampleEntity {
 
     String familyName;
     int age;
     boolean validPLZEntry;
     LocalDateTime dayOfBirth;
-
-    public ExampleEntity() {
-    }
 
 }

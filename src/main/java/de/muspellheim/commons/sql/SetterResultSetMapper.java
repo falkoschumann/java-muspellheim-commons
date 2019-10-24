@@ -13,14 +13,14 @@ import java.util.stream.*;
 
 public class SetterResultSetMapper<T> extends ResultSetMapper<T> {
 
-    private final Map<String, Method> setters;
+    private final Map<String, Method> mappedSetters;
 
     public SetterResultSetMapper(Class<T> type) {
         super(type);
-        setters = createSetters();
+        mappedSetters = createMappedSetters();
     }
 
-    private Map<String, Method> createSetters() {
+    private Map<String, Method> createMappedSetters() {
         BeanInfo beanInfo = getBeanInfo();
         return Arrays.stream(beanInfo.getPropertyDescriptors())
             .filter(p -> p.getWriteMethod() != null)
@@ -35,7 +35,7 @@ public class SetterResultSetMapper<T> extends ResultSetMapper<T> {
             for (int i = 1; i <= columnCount; i++) {
                 String columnLabel = resultSet.getMetaData().getColumnLabel(i);
                 String propertyName = propertyNameFor(columnLabel);
-                Method setter = setters.get(propertyName);
+                Method setter = mappedSetters.get(propertyName);
                 Object value = mapColumn(resultSet, columnLabel);
                 setter.invoke(entity, value);
             }

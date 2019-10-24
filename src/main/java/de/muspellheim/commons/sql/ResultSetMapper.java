@@ -13,6 +13,8 @@ import java.util.stream.*;
 
 public abstract class ResultSetMapper<T> {
 
+    // TODO ResultSet::getObject(String) für alles? Auch null-Werte?
+
     private static final Map<Class<?>, ColumnMapper> MAPPINGS = new HashMap<>();
 
     static {
@@ -36,6 +38,10 @@ public abstract class ResultSetMapper<T> {
 
     public Class<T> getType() {
         return type;
+    }
+
+    public static <T> void registerMapping(Class<T> type, ColumnMapper<T> columnMapper) {
+        MAPPINGS.put(type, columnMapper);
     }
 
     public static Integer getInteger(ResultSet resultSet, String columnLabel) throws SQLException {
