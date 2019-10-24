@@ -10,6 +10,16 @@ import java.lang.reflect.*;
 import java.sql.*;
 import java.util.*;
 
+/**
+ * Map a result set to a value object or data object using all args constructor.
+ * <p>
+ * The constructor must be annotated with {@link ConstructorProperties}.
+ * <p>
+ * This class ist stateless so it an instance can be keep for performance.
+ *
+ * @param <T> the entity type.
+ * @see ResultSetMapper
+ */
 public class ConstructorResultSetMapper<T> extends ResultSetMapper<T> {
 
     private final Constructor<T> constructor;

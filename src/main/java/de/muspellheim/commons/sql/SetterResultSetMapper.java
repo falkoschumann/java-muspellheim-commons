@@ -11,6 +11,14 @@ import java.sql.*;
 import java.util.*;
 import java.util.stream.*;
 
+/**
+ * Map a result set to a data object using setters.
+ * <p>
+ * This class ist stateless so it an instance can be keep for performance.
+ *
+ * @param <T> the entity type.
+ * @see ResultSetMapper
+ */
 public class SetterResultSetMapper<T> extends ResultSetMapper<T> {
 
     private final Map<String, Method> mappedSetters;
