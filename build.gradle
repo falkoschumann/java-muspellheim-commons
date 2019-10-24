@@ -209,4 +209,5 @@ static def printSpotBugsReport(String sourceSet) {
 
 lombok {
     config['lombok.nonNull.exceptionType'] = 'Jdk'
+    config['lombok.anyConstructor.addConstructorProperties'] = 'true'
 }

@@ -16,12 +16,26 @@
 
     <!-- ResultSet: ignore false positive -->
     <Match>
-        <Class name="de.muspellheim.commons.sql.PostgresDatabaseTests"/>
+        <Or>
+            <Class name="de.muspellheim.commons.sql.PostgresDatabaseTests"/>
+            <Class name="de.muspellheim.commons.sql.ResultSetMapperTests"/>
+        </Or>
         <Bug pattern="OBL_UNSATISFIED_OBLIGATION"/>
     </Match>
     <Match>
-        <Class name="de.muspellheim.commons.sql.PostgresDatabaseTests"/>
+        <Or>
+            <Class name="de.muspellheim.commons.sql.PostgresDatabaseTests"/>
+            <Class name="de.muspellheim.commons.sql.ResultSetMapperTests"/>
+        </Or>
         <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE"/>
+    </Match>
+
+    <Match>
+        <And>
+            <Class name="de.muspellheim.commons.sql.ResultSetMapper"/>
+            <Method name="getBoolean"/>
+        </And>
+        <Bug pattern="NP_BOOLEAN_RETURN_NULL"/>
     </Match>
 
 </FindBugsFilter>

@@ -99,9 +99,26 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <section role="region"><a id="package.description">
 <!--   -->
 </a>
-<div class="block">Contains additional classes for JDBC.</div>
+<div class="block">Contains a simple object relational mapping (ORM) and other additional classes for JDBC.</div>
 </section>
 <ul class="blockList">
+<li class="blockList">
+<table class="typeSummary">
+<caption><span>Interface Summary</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Interface</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<th class="colFirst" scope="row"><a href="ColumnMapper.html" title="interface in de.muspellheim.commons.sql">ColumnMapper</a>&lt;T&gt;</th>
+<td class="colLast">
+<div class="block">Map a column of result set to a value.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
 <li class="blockList">
 <table class="typeSummary">
 <caption><span>Class Summary</span><span class="tabEnd">&nbsp;</span></caption>
@@ -111,15 +128,33 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
+<th class="colFirst" scope="row"><a href="ConstructorResultSetMapper.html" title="class in de.muspellheim.commons.sql">ConstructorResultSetMapper</a>&lt;T&gt;</th>
+<td class="colLast">
+<div class="block">Map a result set to a value object or data object using all args constructor.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="DatabaseConfiguration.html" title="class in de.muspellheim.commons.sql">DatabaseConfiguration</a></th>
 <td class="colLast">
 <div class="block">Collect information for a database connection.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="PostgresDatabase.html" title="class in de.muspellheim.commons.sql">PostgresDatabase</a></th>
 <td class="colLast">
 <div class="block">Factory for an Postgres datasource.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colFirst" scope="row"><a href="ResultSetMapper.html" title="class in de.muspellheim.commons.sql">ResultSetMapper</a>&lt;T&gt;</th>
+<td class="colLast">
+<div class="block">Mapping a result set to an entity.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colFirst" scope="row"><a href="SetterResultSetMapper.html" title="class in de.muspellheim.commons.sql">SetterResultSetMapper</a>&lt;T&gt;</th>
+<td class="colLast">
+<div class="block">Map a result set to a data object using setters.</div>
 </td>
 </tr>
 </tbody>
