@@ -38,7 +38,9 @@ public class ConstructorResultSetMapper<T> extends ResultSetMapper<T> {
             for (int i = 1; i <= columnCount; i++) {
                 String columnLabel = resultSet.getMetaData().getColumnLabel(i);
                 String propertyName = propertyNameFor(columnLabel);
-                parameters[mappedParameters.get(propertyName)] = mapColumn(resultSet, columnLabel);
+                Integer parameterIndex = mappedParameters.get(propertyName);
+                Object value = mapColumn(resultSet, columnLabel);
+                parameters[parameterIndex] = value;
             }
             return constructor.newInstance(parameters);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {

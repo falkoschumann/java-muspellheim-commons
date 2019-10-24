@@ -17,6 +17,7 @@ public class ExampleEntity {
 
     String familyName;
     int age;
+    double weight;
     boolean validPLZEntry;
     LocalDateTime dayOfBirth;
 

@@ -13,17 +13,34 @@ import java.util.stream.*;
 
 public abstract class ResultSetMapper<T> {
 
-    // TODO ResultSet::getObject(String) für alles? Auch null-Werte?
-
     private static final Map<Class<?>, ColumnMapper> MAPPINGS = new HashMap<>();
 
     static {
         MAPPINGS.put(String.class, ResultSet::getString);
+
+        MAPPINGS.put(Long.class, ResultSetMapper::getLong);
+        MAPPINGS.put(long.class, ResultSetMapper::getLong);
         MAPPINGS.put(Integer.class, ResultSetMapper::getInteger);
         MAPPINGS.put(int.class, ResultSetMapper::getInteger);
+        MAPPINGS.put(Short.class, ResultSetMapper::getShort);
+        MAPPINGS.put(short.class, ResultSetMapper::getShort);
+        MAPPINGS.put(Byte.class, ResultSetMapper::getByte);
+        MAPPINGS.put(byte.class, ResultSetMapper::getByte);
+
+        MAPPINGS.put(Double.class, ResultSetMapper::getDouble);
+        MAPPINGS.put(double.class, ResultSetMapper::getDouble);
+        MAPPINGS.put(Float.class, ResultSetMapper::getFloat);
+        MAPPINGS.put(float.class, ResultSetMapper::getFloat);
+
         MAPPINGS.put(Boolean.class, ResultSetMapper::getBoolean);
         MAPPINGS.put(boolean.class, ResultSetMapper::getBoolean);
+
+        MAPPINGS.put(byte[].class, ResultSet::getBytes);
+
+        MAPPINGS.put(LocalDate.class, (resultSet, columnLabel) -> resultSet.getObject(columnLabel, LocalDate.class));
+        MAPPINGS.put(LocalTime.class, (resultSet, columnLabel) -> resultSet.getObject(columnLabel, LocalTime.class));
         MAPPINGS.put(LocalDateTime.class, (resultSet, columnLabel) -> resultSet.getObject(columnLabel, LocalDateTime.class));
+        MAPPINGS.put(Instant.class, (resultSet, columnLabel) -> resultSet.getObject(columnLabel, Instant.class));
     }
 
     private final Class<T> type;
@@ -44,8 +61,48 @@ public abstract class ResultSetMapper<T> {
         MAPPINGS.put(type, columnMapper);
     }
 
+    public static Double getDouble(ResultSet resultSet, String columnLabel) throws SQLException {
+        double v = resultSet.getDouble(columnLabel);
+        if (resultSet.wasNull()) {
+            return null;
+        }
+        return v;
+    }
+
+    public static Float getFloat(ResultSet resultSet, String columnLabel) throws SQLException {
+        float v = resultSet.getFloat(columnLabel);
+        if (resultSet.wasNull()) {
+            return null;
+        }
+        return v;
+    }
+
+    public static Long getLong(ResultSet resultSet, String columnLabel) throws SQLException {
+        long v = resultSet.getLong(columnLabel);
+        if (resultSet.wasNull()) {
+            return null;
+        }
+        return v;
+    }
+
     public static Integer getInteger(ResultSet resultSet, String columnLabel) throws SQLException {
         int v = resultSet.getInt(columnLabel);
+        if (resultSet.wasNull()) {
+            return null;
+        }
+        return v;
+    }
+
+    public static Short getShort(ResultSet resultSet, String columnLabel) throws SQLException {
+        short v = resultSet.getShort(columnLabel);
+        if (resultSet.wasNull()) {
+            return null;
+        }
+        return v;
+    }
+
+    public static Byte getByte(ResultSet resultSet, String columnLabel) throws SQLException {
+        byte v = resultSet.getByte(columnLabel);
         if (resultSet.wasNull()) {
             return null;
         }
@@ -71,6 +128,16 @@ public abstract class ResultSetMapper<T> {
         return mapper.map(resultSet, columnLabel);
     }
 
+    protected BeanInfo getBeanInfo() {
+        BeanInfo beanInfo;
+        try {
+            beanInfo = Introspector.getBeanInfo(type);
+        } catch (IntrospectionException e) {
+            throw new IllegalStateException("Can not create name mapping", e);
+        }
+        return beanInfo;
+    }
+
     private Map<String, String> createMappedColumns() {
         BeanInfo beanInfo = getBeanInfo();
         return Arrays.stream(beanInfo.getPropertyDescriptors())
@@ -83,16 +150,6 @@ public abstract class ResultSetMapper<T> {
         return Arrays.stream(beanInfo.getPropertyDescriptors())
             .filter(p -> !p.getName().equals("class"))
             .collect(Collectors.toMap(ResultSetMapper::columnLabel, ResultSetMapper::columnMapper));
-    }
-
-    protected BeanInfo getBeanInfo() {
-        BeanInfo beanInfo;
-        try {
-            beanInfo = Introspector.getBeanInfo(type);
-        } catch (IntrospectionException e) {
-            throw new IllegalStateException("Can not create name mapping", e);
-        }
-        return beanInfo;
     }
 
     private static String columnLabel(PropertyDescriptor propertyDescriptor) {

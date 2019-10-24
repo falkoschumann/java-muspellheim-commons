@@ -21,10 +21,10 @@ class ResultSetMapperTests {
         + "    *\n"
         + "FROM\n"
         + "    (VALUES\n"
-        + "      ('Foo', 42, true, '2000-12-31 23:59'::timestamp)"
-        + "    ) AS table1(family_name, age, valid_plz_entry, day_of_birth);";
+        + "      ('Foo', 42, 74.7, true, '2000-12-31 23:59'::timestamp)"
+        + "    ) AS table1(family_name, age, weight, valid_plz_entry, day_of_birth);";
 
-    private static final ExampleEntity ENTITY = new ExampleEntity("Foo", 42, true, LocalDateTime.of(2000, 12, 31, 23, 59));
+    private static final ExampleEntity ENTITY = new ExampleEntity("Foo", 42, 74.7, true, LocalDateTime.of(2000, 12, 31, 23, 59));
 
     @Test
     void mapByConstructor() throws Exception {
