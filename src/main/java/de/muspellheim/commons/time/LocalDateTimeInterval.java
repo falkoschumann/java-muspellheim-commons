@@ -7,7 +7,6 @@ package de.muspellheim.commons.time;
 
 import java.time.*;
 import java.time.format.*;
-import javax.annotation.*;
 
 import lombok.*;
 
@@ -60,7 +59,7 @@ public class LocalDateTimeInterval {
      * @return the parsed local date-time interval, not null
      * @throws DateTimeParseException if the text cannot be parsed
      */
-    public static LocalDateTimeInterval parse(@Nonnull CharSequence text) {
+    public static LocalDateTimeInterval parse(@NonNull CharSequence text) {
         String[] s = text.toString().split("/");
         if (s.length != 2) {
             throw new DateTimeParseException("interval must separate start and end with /", text, 0);
