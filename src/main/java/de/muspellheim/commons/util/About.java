@@ -19,7 +19,7 @@ import lombok.*;
 @SuppressWarnings("checkstyle:VisibilityModifier")
 public class About {
 
-    private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(About.class.getName());
+    private final ResourceBundle resourceBundle = ResourceBundle.getBundle(About.class.getName());
 
     /**
      * The title of an application or a library.
@@ -60,12 +60,13 @@ public class About {
      * @return the about information
      */
     public static About of(Class<?> appType) {
+        ResourceBundle resourceBundle = ResourceBundle.getBundle(About.class.getName());
         Package p = appType.getPackage();
         return new About(
             p.getImplementationTitle(),
             Version.parse(p.getImplementationVersion()),
-            MessageFormat.format(RESOURCE_BUNDLE.getString("about.copyright"), LocalDate.now().getYear(), p.getImplementationVendor()),
-            RESOURCE_BUNDLE.getString("about.rights")
+            MessageFormat.format(resourceBundle.getString("about.copyright"), LocalDate.now().getYear(), p.getImplementationVendor()),
+            resourceBundle.getString("about.rights")
         );
     }
 
@@ -77,12 +78,13 @@ public class About {
      * @return the about information
      */
     public static About of(Class<?> appType, String copyrightYear) {
+        ResourceBundle resourceBundle = ResourceBundle.getBundle(About.class.getName());
         Package p = appType.getPackage();
         return new About(
             p.getImplementationTitle(),
             Version.parse(p.getImplementationVersion()),
-            MessageFormat.format(RESOURCE_BUNDLE.getString("about.copyright"), copyrightYear, p.getImplementationVendor()),
-            RESOURCE_BUNDLE.getString("about.rights")
+            MessageFormat.format(resourceBundle.getString("about.copyright"), copyrightYear, p.getImplementationVendor()),
+            resourceBundle.getString("about.rights")
         );
     }
 
@@ -92,7 +94,7 @@ public class About {
      * @return user readable text of version
      */
     public String getVersionText() {
-        return MessageFormat.format(RESOURCE_BUNDLE.getString("about.version"), version);
+        return MessageFormat.format(resourceBundle.getString("about.version"), version);
     }
 
     /**
