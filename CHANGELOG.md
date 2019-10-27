@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+*   Resource bundles do not rely on default locale.
+*   Simplify creation of `About` instances.
+
 ## [v1.1.0] - 2019-10-27
 
 ### Added
