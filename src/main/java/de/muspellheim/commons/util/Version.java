@@ -26,21 +26,21 @@ public class Version implements Comparable<Version> {
     /**
      * A new major version indicates incombatible changes.
      *
-     * @return the major version of this version.
+     * @return the major version of this version
      */
     int major;
 
     /**
      * A new minor version indicates combatible changes.
      *
-     * @return the minor version of this version.
+     * @return the minor version of this version
      */
     int minor;
 
     /**
      * A new patch version indicates changes are only bugfixes.
      *
-     * @return the patch version of this version.
+     * @return the patch version of this version
      */
     int patch;
 
@@ -49,7 +49,7 @@ public class Version implements Comparable<Version> {
      * <p>
      * A version without pre-release is newer than with.
      *
-     * @return the pre-release of this version.
+     * @return the pre-release of this version
      */
     @With
     String preRelease;
@@ -59,7 +59,7 @@ public class Version implements Comparable<Version> {
      * <p>
      * Ignored when compare.
      *
-     * @return the build metadata of this version.
+     * @return the build metadata of this version
      */
     @With
     String buildMetadata;
@@ -67,10 +67,10 @@ public class Version implements Comparable<Version> {
     /**
      * Creates a simple version.
      *
-     * @param major the major version.
-     * @param minor the minor version.
-     * @param patch the patch version.
-     * @return the version.
+     * @param major the major version
+     * @param minor the minor version
+     * @param patch the patch version
+     * @return the version
      */
     public static Version of(int major, int minor, int patch) {
         return new Version(major, minor, patch, null, null);
@@ -79,9 +79,9 @@ public class Version implements Comparable<Version> {
     /**
      * Parse text as version string.
      *
-     * @param text a version string.
-     * @return the version.
-     * @throws IllegalArgumentException if text is not a version string.
+     * @param text a version string
+     * @return the version
+     * @throws IllegalArgumentException if text is not a version string
      */
     public static Version parse(@NonNull String text) {
         Matcher matcher = PATTERN.matcher(text);

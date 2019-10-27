@@ -23,7 +23,7 @@ public class Event<T> {
     /**
      * Adds a handler to notify it of sending events.
      *
-     * @param handler the handler to add.
+     * @param handler the handler to add
      */
     public void addHandler(@NonNull Consumer<T> handler) {
         handlers.add(handler);
@@ -32,7 +32,7 @@ public class Event<T> {
     /**
      * Removes a handler to not notify it anymore.
      *
-     * @param handler the handler to remove.
+     * @param handler the handler to remove
      */
     public void removeHandler(@NonNull Consumer<T> handler) {
         handlers.remove(handler);
@@ -41,7 +41,7 @@ public class Event<T> {
     /**
      * Sends a message to all added handlers.
      *
-     * @param message the message to send.
+     * @param message the message to send
      */
     public void send(@NonNull T message) {
         handlers.forEach(handler -> {

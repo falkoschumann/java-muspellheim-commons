@@ -20,7 +20,7 @@ public class Action {
     /**
      * Adds a handler to notify it of sending events.
      *
-     * @param handler the handler to add.
+     * @param handler the handler to add
      */
     public void addHandler(@NonNull Runnable handler) {
         handlers.add(handler);
@@ -29,7 +29,7 @@ public class Action {
     /**
      * Removes a handler to not notify it anymore.
      *
-     * @param handler the handler to remove.
+     * @param handler the handler to remove
      */
     public void removeHandler(@NonNull Runnable handler) {
         handlers.remove(handler);

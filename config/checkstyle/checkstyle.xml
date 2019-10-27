@@ -32,7 +32,9 @@
     <module name="TreeWalker">
 
         <!-- Annotations -->
-        <module name="AnnotationLocation"/>
+        <module name="AnnotationLocation">
+            <property name="allowSamelineMultipleAnnotations" value="true"/>
+        </module>
         <module name="AnnotationUseStyle"/>
         <module name="MissingDeprecated"/>
         <module name="MissingOverride"/>

@@ -39,7 +39,7 @@ public class EventBus {
     /**
      * Get the default event bus, can be used as application wide singleton.
      *
-     * @return the only instance of the default event bus.
+     * @return the only instance of the default event bus
      */
     public static EventBus getDefault() {
         return INSTANCE;
@@ -48,9 +48,9 @@ public class EventBus {
     /**
      * Subscribe to an event type
      *
-     * @param eventType  the event type, can be a super class of all events to subscribe.
-     * @param subscriber the subscriber which will consume the events.
-     * @param <T>        the event type class.
+     * @param eventType  the event type, can be a super class of all events to subscribe
+     * @param subscriber the subscriber which will consume the events
+     * @param <T>        the event type class
      */
     public <T> void subscribe(@NonNull Class<? extends T> eventType, @NonNull Consumer<T> subscriber) {
         List<Consumer> subscribers = typedSubscribers.computeIfAbsent(eventType, t -> new CopyOnWriteArrayList<>());
@@ -60,7 +60,7 @@ public class EventBus {
     /**
      * Unsubscribe from all event types.
      *
-     * @param subscriber the subscriber to unsubscribe.
+     * @param subscriber the subscriber to unsubscribe
      */
     public void unsubscribe(@NonNull Consumer<?> subscriber) {
         typedSubscribers.values().forEach(subscribers -> subscribers.remove(subscriber));
@@ -69,9 +69,9 @@ public class EventBus {
     /**
      * Unsubscribe from an event type.
      *
-     * @param eventType  the event type, can be a super class of all events to unsubscribe.
-     * @param subscriber the subscriber to unsubscribe.
-     * @param <T>        the event type class.
+     * @param eventType  the event type, can be a super class of all events to unsubscribe
+     * @param subscriber the subscriber to unsubscribe
+     * @param <T>        the event type class
      */
     public <T> void unsubscribe(@NonNull Class<? extends T> eventType, @NonNull Consumer<T> subscriber) {
         typedSubscribers.keySet().stream()
@@ -86,7 +86,7 @@ public class EventBus {
      * The event type is the class of <code>event</code>. The event is published to all consumers which subscribed to
      * this event type or any super class.
      *
-     * @param event the event.
+     * @param event the event
      */
     public void publish(@NonNull Object event) {
         Class<?> eventType = event.getClass();

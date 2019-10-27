@@ -81,7 +81,7 @@ public abstract class ResultSetMapper<T> {
     /**
      * Create a mapper.
      *
-     * @param type the mapped entity type.
+     * @param type the mapped entity type
      */
     public ResultSetMapper(Class<T> type) {
         this.type = type;
@@ -92,7 +92,7 @@ public abstract class ResultSetMapper<T> {
     /**
      * The mapped entity type by this mapper.
      *
-     * @return the mapped entity type.
+     * @return the mapped entity type
      */
     public Class<T> getType() {
         return type;
@@ -101,7 +101,7 @@ public abstract class ResultSetMapper<T> {
     /**
      * The bean info for mapped entity type.
      *
-     * @return the entity bean info.
+     * @return the entity bean info
      */
     protected BeanInfo getBeanInfo() {
         BeanInfo beanInfo;
@@ -116,9 +116,9 @@ public abstract class ResultSetMapper<T> {
     /**
      * Register a new column mapper or replace a exists one.
      *
-     * @param type         the mapped property type.
-     * @param columnMapper the column mapper.
-     * @param <T>          the mapped property type.
+     * @param type         the mapped property type
+     * @param columnMapper the column mapper
+     * @param <T>          the mapped property type
      */
     public static <T> void registerMapping(Class<T> type, ColumnMapper<T> columnMapper) {
         MAPPINGS.put(type, columnMapper);
@@ -127,10 +127,10 @@ public abstract class ResultSetMapper<T> {
     /**
      * Return the double value of a column or <code>null</code>.
      *
-     * @param resultSet   a result set.
-     * @param columnLabel a column label.
-     * @return the value of given column or <code>null</code>.
-     * @throws SQLException if an error occurred.
+     * @param resultSet   a result set
+     * @param columnLabel a column label
+     * @return the value of given column or <code>null</code>
+     * @throws SQLException if an error occurred
      */
     public static Double getDouble(ResultSet resultSet, String columnLabel) throws SQLException {
         double v = resultSet.getDouble(columnLabel);
@@ -143,10 +143,10 @@ public abstract class ResultSetMapper<T> {
     /**
      * Return the float value of a column or <code>null</code>.
      *
-     * @param resultSet   a result set.
-     * @param columnLabel a column label.
-     * @return the value of given column or <code>null</code>.
-     * @throws SQLException if an error occurred.
+     * @param resultSet   a result set
+     * @param columnLabel a column label
+     * @return the value of given column or <code>null</code>
+     * @throws SQLException if an error occurred
      */
     public static Float getFloat(ResultSet resultSet, String columnLabel) throws SQLException {
         float v = resultSet.getFloat(columnLabel);
@@ -159,10 +159,10 @@ public abstract class ResultSetMapper<T> {
     /**
      * Return the long value of a column or <code>null</code>.
      *
-     * @param resultSet   a result set.
-     * @param columnLabel a column label.
-     * @return the value of given column or <code>null</code>.
-     * @throws SQLException if an error occurred.
+     * @param resultSet   a result set
+     * @param columnLabel a column label
+     * @return the value of given column or <code>null</code>
+     * @throws SQLException if an error occurred
      */
     public static Long getLong(ResultSet resultSet, String columnLabel) throws SQLException {
         long v = resultSet.getLong(columnLabel);
@@ -175,10 +175,10 @@ public abstract class ResultSetMapper<T> {
     /**
      * Return the integer value of a column or <code>null</code>.
      *
-     * @param resultSet   a result set.
-     * @param columnLabel a column label.
-     * @return the value of given column or <code>null</code>.
-     * @throws SQLException if an error occurred.
+     * @param resultSet   a result set
+     * @param columnLabel a column label
+     * @return the value of given column or <code>null</code>
+     * @throws SQLException if an error occurred
      */
     public static Integer getInteger(ResultSet resultSet, String columnLabel) throws SQLException {
         int v = resultSet.getInt(columnLabel);
@@ -189,12 +189,12 @@ public abstract class ResultSetMapper<T> {
     }
 
     /**
-     * Return the short value of a column or <code>null</code>.
+     * Return the short value of a column or <code>null</code>
      *
-     * @param resultSet   a result set.
-     * @param columnLabel a column label.
-     * @return the value of given column or <code>null</code>.
-     * @throws SQLException if an error occurred.
+     * @param resultSet   a result set
+     * @param columnLabel a column label
+     * @return the value of given column or <code>null</code>
+     * @throws SQLException if an error occurred
      */
     public static Short getShort(ResultSet resultSet, String columnLabel) throws SQLException {
         short v = resultSet.getShort(columnLabel);
@@ -207,10 +207,10 @@ public abstract class ResultSetMapper<T> {
     /**
      * Return the byte value of a column or <code>null</code>.
      *
-     * @param resultSet   a result set.
-     * @param columnLabel a column label.
-     * @return the value of given column or <code>null</code>.
-     * @throws SQLException if an error occurred.
+     * @param resultSet   a result set
+     * @param columnLabel a column label
+     * @return the value of given column or <code>null</code>
+     * @throws SQLException if an error occurred
      */
     public static Byte getByte(ResultSet resultSet, String columnLabel) throws SQLException {
         byte v = resultSet.getByte(columnLabel);
@@ -223,10 +223,10 @@ public abstract class ResultSetMapper<T> {
     /**
      * Return the boolean value of a column or <code>null</code>.
      *
-     * @param resultSet   a result set.
-     * @param columnLabel a column label.
-     * @return the value of given column or <code>null</code>.
-     * @throws SQLException if an error occurred.
+     * @param resultSet   a result set
+     * @param columnLabel a column label
+     * @return the value of given column or <code>null</code>
+     * @throws SQLException if an error occurred
      */
     public static Boolean getBoolean(ResultSet resultSet, String columnLabel) throws SQLException {
         boolean v = resultSet.getBoolean(columnLabel);
@@ -239,17 +239,17 @@ public abstract class ResultSetMapper<T> {
     /**
      * Map a result set to an entity.
      *
-     * @param resultSet a result set.
-     * @return the mapped entity.
-     * @throws SQLException if an error occurred.
+     * @param resultSet a result set
+     * @return the mapped entity
+     * @throws SQLException if an error occurred
      */
     public abstract T map(ResultSet resultSet) throws SQLException;
 
     /**
      * Get the property name for a column label.
      *
-     * @param columnLabel a column label.
-     * @return the associated property name.
+     * @param columnLabel a column label
+     * @return the associated property name
      */
     protected String propertyNameFor(String columnLabel) {
         return mappedColumns.get(columnLabel);
@@ -258,10 +258,10 @@ public abstract class ResultSetMapper<T> {
     /**
      * Use known column mapper to get a column value.
      *
-     * @param resultSet   a result set.
-     * @param columnLabel a column label.
-     * @return the value of given column.
-     * @throws SQLException if an error occurred.
+     * @param resultSet   a result set
+     * @param columnLabel a column label
+     * @return the value of given column
+     * @throws SQLException if an error occurred
      * @see #registerMapping(Class, ColumnMapper)
      */
     protected Object mapColumn(ResultSet resultSet, String columnLabel) throws SQLException {
