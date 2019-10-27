@@ -14,6 +14,10 @@ import lombok.*;
 @SuppressWarnings("checkstyle:VisibilityModifier")
 public class Interval {
 
+    // TODO TimeInterval
+    // TODO DateInterval
+    // TODO Interval (Instant)
+
     @NonNull @With Instant start;
     @NonNull @With Instant end;
 

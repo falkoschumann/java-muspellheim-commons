@@ -21,11 +21,18 @@ import lombok.*;
 @SuppressWarnings("checkstyle:VisibilityModifier")
 public class DateTimeInterval {
 
-    // TODO TimeInterval
-    // TODO DateInterval
-    // TODO Interval (Instant)
-
+    /**
+     * The start of this interval is inclusive.
+     *
+     * @return the start of this interval
+     */
     @NonNull @With LocalDateTime start;
+
+    /**
+     * The end of this interval is inclusive.
+     *
+     * @return the end of this interval
+     */
     @NonNull @With LocalDateTime end;
 
     /**
