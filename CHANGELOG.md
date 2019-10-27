@@ -7,12 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.1.0] - 2019-10-27
+
 ### Added
 
 *   Simple object relational mapping (ORM).
 *   Interval objects based on `LocalDateTime`, `LocalDate` or `Instant`. 
 
-## [1.0.0] - 2019-10-21
+## [v1.0.0] - 2019-10-21
 
 ### Added
 
@@ -25,4 +27,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 [Unreleased]: https://github.com/falkoschumann/java-muspellheim-commons/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/falkoschumann/java-muspellheim-commons/tree/v1.0.0
+[v1.1.0]: https://github.com/falkoschumann/java-muspellheim-commons/compare/v1.0.0...v1.1.0
+[v1.0.0]: https://github.com/falkoschumann/java-muspellheim-commons/tree/v1.0.0
