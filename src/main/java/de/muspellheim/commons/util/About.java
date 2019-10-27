@@ -19,39 +19,36 @@ import lombok.*;
 @SuppressWarnings("checkstyle:VisibilityModifier")
 public class About {
 
-    private final ResourceBundle resourceBundle = ResourceBundle.getBundle(About.class.getName());
+    @Getter(AccessLevel.PRIVATE)
+    ResourceBundle resourceBundle = ResourceBundle.getBundle(About.class.getName());
 
     /**
      * The title of an application or a library.
      *
      * @return the title
      */
-    @NonNull
-    String title;
+    @NonNull String title;
 
     /**
      * The version of an application or a library.
      *
      * @return the version
      */
-    @NonNull
-    Version version;
+    @NonNull Version version;
 
     /**
      * The copyright of an application or a library.
      *
      * @return the copryright
      */
-    @NonNull
-    String copyright;
+    @NonNull String copyright;
 
     /**
      * The rights of an application or a library.
      *
      * @return the rights
      */
-    @NonNull
-    String rights;
+    @NonNull String rights;
 
     /**
      * Create about information by reading title, version and vendor from a package.
