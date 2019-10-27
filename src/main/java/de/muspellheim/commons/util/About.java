@@ -63,13 +63,12 @@ public class About {
      * @return the about information
      */
     public static About of(Class<?> appType) {
-        ResourceBundle resourceBundle = ResourceBundle.getBundle(About.class.getName());
         Package p = appType.getPackage();
-        return new About(
+        return of(
             p.getImplementationTitle(),
             Version.parse(p.getImplementationVersion()),
-            MessageFormat.format(resourceBundle.getString(ABOUT_COPYRIGHT), LocalDate.now().getYear(), p.getImplementationVendor()),
-            resourceBundle.getString(ABOUT_RIGHTS)
+            LocalDate.now().getYear(),
+            p.getImplementationVendor()
         );
     }
 
@@ -85,13 +84,12 @@ public class About {
      */
     @Deprecated
     public static About of(Class<?> appType, String copyrightYear) {
-        ResourceBundle resourceBundle = ResourceBundle.getBundle(About.class.getName());
         Package p = appType.getPackage();
-        return new About(
+        return of(
             p.getImplementationTitle(),
             Version.parse(p.getImplementationVersion()),
-            MessageFormat.format(resourceBundle.getString(ABOUT_COPYRIGHT), copyrightYear, p.getImplementationVendor()),
-            resourceBundle.getString(ABOUT_RIGHTS)
+            copyrightYear,
+            p.getImplementationVendor()
         );
     }
 
@@ -105,13 +103,12 @@ public class About {
      * @return the about information
      */
     public static About of(Class<?> appType, int copyrightYear) {
-        ResourceBundle resourceBundle = ResourceBundle.getBundle(About.class.getName());
         Package p = appType.getPackage();
-        return new About(
+        return of(
             p.getImplementationTitle(),
             Version.parse(p.getImplementationVersion()),
-            MessageFormat.format(resourceBundle.getString(ABOUT_COPYRIGHT), copyrightYear, p.getImplementationVendor()),
-            resourceBundle.getString(ABOUT_RIGHTS)
+            String.valueOf(copyrightYear),
+            p.getImplementationVendor()
         );
     }
 
@@ -131,7 +128,7 @@ public class About {
         return new About(
             title,
             version,
-            MessageFormat.format(resourceBundle.getString(ABOUT_COPYRIGHT), copyrightYear, copyrightHolder),
+            MessageFormat.format(resourceBundle.getString(ABOUT_COPYRIGHT), String.valueOf(copyrightYear), copyrightHolder),
             resourceBundle.getString(ABOUT_RIGHTS)
         );
     }
