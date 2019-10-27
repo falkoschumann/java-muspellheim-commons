@@ -1,3 +1,4 @@
+[![Download](https://api.bintray.com/packages/falkoschumann/maven/muspellheim-commons/images/download.svg)](https://bintray.com/falkoschumann/maven/muspellheim-commons)
 [![Bintray](https://img.shields.io/bintray/v/falkoschumann/maven/muspellheim-commons)](https://bintray.com/falkoschumann/maven/muspellheim-commons)
 [![Build Status](https://travis-ci.org/falkoschumann/java-muspellheim-commons.png?branch=master)](https://travis-ci.org/falkoschumann/java-muspellheim-commons)
 
