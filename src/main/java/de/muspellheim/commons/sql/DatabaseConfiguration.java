@@ -18,35 +18,35 @@ public class DatabaseConfiguration {
     /**
      * Host ip or hostname.
      *
-     * @return the host.
+     * @return the host
      */
     String host;
 
     /**
      * Port.
      *
-     * @return the port.
+     * @return the port
      */
     int port;
 
     /**
      * Username.
      *
-     * @return the user.
+     * @return the user
      */
     @NonNull String user;
 
     /**
      * User password.
      *
-     * @return the passwors.
+     * @return the passwors
      */
     String password;
 
     /**
      * Database name.
      *
-     * @return the database.
+     * @return the database
      */
     @NonNull String database;
 

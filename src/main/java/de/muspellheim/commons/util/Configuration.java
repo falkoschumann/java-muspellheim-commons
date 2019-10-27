@@ -34,7 +34,7 @@ public class Configuration {
     /**
      * Initialize a configuration.
      *
-     * @param properties initial configuration.
+     * @param properties initial configuration
      */
     public Configuration(@NonNull Properties properties) {
         this.properties = properties;
@@ -45,8 +45,8 @@ public class Configuration {
      * <p>
      * Load a properties file from class path <code>/{basename}.properties</code>.
      *
-     * @param basename basename of properties file.
-     * @throws ConfigurationException if default configuration can not be loaded.
+     * @param basename basename of properties file
+     * @throws ConfigurationException if default configuration can not be loaded
      */
     public void loadDefaults(@NonNull String basename) throws ConfigurationException {
         String filename = String.format("/%s.properties", basename);
@@ -67,8 +67,8 @@ public class Configuration {
      * <p>
      * Load a properties file from working directory <code>{basename}.properties</code>.
      *
-     * @param basename basename of properties file.
-     * @throws ConfigurationException if configuration can not be loaded.
+     * @param basename basename of properties file
+     * @throws ConfigurationException if configuration can not be loaded
      */
     public void load(@NonNull String basename) throws ConfigurationException {
         String filename = String.format("%s.properties", basename);
@@ -79,8 +79,8 @@ public class Configuration {
     /**
      * Load configuration from any path.
      *
-     * @param propertiesFile path to a properties file.
-     * @throws ConfigurationException if configuration can not be loaded.
+     * @param propertiesFile path to a properties file
+     * @throws ConfigurationException if configuration can not be loaded
      */
     public void load(@NonNull Path propertiesFile) throws ConfigurationException {
         try (Reader reader = Files.newBufferedReader(propertiesFile, CHARSET)) {
@@ -93,10 +93,10 @@ public class Configuration {
     /**
      * Get an existing value from configuration.
      *
-     * @param key key for value.
-     * @return the value.
-     * @throws ConfigurationException if value could not get.
-     * @throws NotConfiguredException if key not exists in configuration.
+     * @param key key for value
+     * @return the value
+     * @throws ConfigurationException if value could not get
+     * @throws NotConfiguredException if key not exists in configuration
      */
     public String getString(String key) throws ConfigurationException {
         return getValue(key)
@@ -106,10 +106,10 @@ public class Configuration {
     /**
      * Get a value from configuration or default value if key not exists.
      *
-     * @param key          key for value.
-     * @param defaultValue value if key not exists.
-     * @return the value.
-     * @throws ConfigurationException if value could not get.
+     * @param key          key for value
+     * @param defaultValue value if key not exists
+     * @return the value
+     * @throws ConfigurationException if value could not get
      */
     public String getString(String key, String defaultValue) throws ConfigurationException {
         return getValue(key)
@@ -127,10 +127,10 @@ public class Configuration {
     /**
      * Get an existing value from configuration.
      *
-     * @param key key for value.
-     * @return the value.
-     * @throws ConfigurationException if value could not get.
-     * @throws NotConfiguredException if key not exists in configuration.
+     * @param key key for value
+     * @return the value
+     * @throws ConfigurationException if value could not get
+     * @throws NotConfiguredException if key not exists in configuration
      */
     public boolean getBoolean(String key) throws ConfigurationException {
         return getValue(key)
@@ -141,10 +141,10 @@ public class Configuration {
     /**
      * Get a value from configuration or default value if key not exists.
      *
-     * @param key          key for value.
-     * @param defaultValue value if key not exists.
-     * @return the value.
-     * @throws ConfigurationException if value could not get.
+     * @param key          key for value
+     * @param defaultValue value if key not exists
+     * @return the value
+     * @throws ConfigurationException if value could not get
      */
     public boolean getBoolean(String key, boolean defaultValue) throws ConfigurationException {
         return getValue(key)
@@ -155,10 +155,10 @@ public class Configuration {
     /**
      * Get an existing value from configuration.
      *
-     * @param key key for value.
-     * @return the value.
-     * @throws ConfigurationException if value could not get.
-     * @throws NotConfiguredException if key not exists in configuration.
+     * @param key key for value
+     * @return the value
+     * @throws ConfigurationException if value could not get
+     * @throws NotConfiguredException if key not exists in configuration
      */
     public int getInt(String key) throws ConfigurationException {
         try {
@@ -173,10 +173,10 @@ public class Configuration {
     /**
      * Get a value from configuration or default value if key not exists.
      *
-     * @param key          key for value.
-     * @param defaultValue value if key not exists.
-     * @return the value.
-     * @throws ConfigurationException if value could not get.
+     * @param key          key for value
+     * @param defaultValue value if key not exists
+     * @return the value
+     * @throws ConfigurationException if value could not get
      */
     public int getInt(String key, int defaultValue) throws ConfigurationException {
         try {
@@ -191,10 +191,10 @@ public class Configuration {
     /**
      * Get an existing value from configuration.
      *
-     * @param key key for value.
-     * @return the value.
-     * @throws ConfigurationException if value could not get.
-     * @throws NotConfiguredException if key not exists in configuration.
+     * @param key key for value
+     * @return the value
+     * @throws ConfigurationException if value could not get
+     * @throws NotConfiguredException if key not exists in configuration
      */
     public double getDouble(String key) throws ConfigurationException {
         try {
@@ -209,10 +209,10 @@ public class Configuration {
     /**
      * Get a value from configuration or default value if key not exists.
      *
-     * @param key          key for value.
-     * @param defaultValue value if key not exists.
-     * @return the value.
-     * @throws ConfigurationException if value could not get.
+     * @param key          key for value
+     * @param defaultValue value if key not exists
+     * @return the value
+     * @throws ConfigurationException if value could not get
      */
     public double getDouble(String key, double defaultValue) throws ConfigurationException {
         try {

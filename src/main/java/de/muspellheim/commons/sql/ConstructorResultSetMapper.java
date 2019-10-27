@@ -17,7 +17,7 @@ import java.util.*;
  * <p>
  * This class ist stateless so it an instance can be keep for performance.
  *
- * @param <T> the entity type.
+ * @param <T> the entity type
  * @see ResultSetMapper
  */
 public class ConstructorResultSetMapper<T> extends ResultSetMapper<T> {

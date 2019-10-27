@@ -23,7 +23,7 @@ public class PostgresDatabase {
     /**
      * Initialize with configuration.
      *
-     * @param configuration the configuration.
+     * @param configuration the configuration
      */
     public PostgresDatabase(DatabaseConfiguration configuration) {
         this.configuration = configuration;
@@ -32,7 +32,7 @@ public class PostgresDatabase {
     /**
      * Returns the data source for the underlying configuration.
      *
-     * @return the data source.
+     * @return the data source
      */
     public DataSource getDataSource() {
         if (dataSource == null) {

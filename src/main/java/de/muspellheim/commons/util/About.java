@@ -24,7 +24,7 @@ public class About {
     /**
      * The title of an application or a library.
      *
-     * @return the title.
+     * @return the title
      */
     @NonNull
     String title;
@@ -32,7 +32,7 @@ public class About {
     /**
      * The version of an application or a library.
      *
-     * @return the version.
+     * @return the version
      */
     @NonNull
     Version version;
@@ -40,7 +40,7 @@ public class About {
     /**
      * The copyright of an application or a library.
      *
-     * @return the copryright.
+     * @return the copryright
      */
     @NonNull
     String copyright;
@@ -48,7 +48,7 @@ public class About {
     /**
      * The rights of an application or a library.
      *
-     * @return the rights.
+     * @return the rights
      */
     @NonNull
     String rights;
@@ -56,8 +56,8 @@ public class About {
     /**
      * Create about information by reading title, version and vendor from a package.
      *
-     * @param appType class from an application or libray for reading package implementation information.
-     * @return the about information.
+     * @param appType class from an application or libray for reading package implementation information
+     * @return the about information
      */
     public static About of(Class<?> appType) {
         Package p = appType.getPackage();
@@ -72,9 +72,9 @@ public class About {
     /**
      * Create about information by reading title, version and vendor from a package.
      *
-     * @param appType       class from an application or libray for reading package implementation information.
-     * @param copyrightYear copyright year can not read from a package.
-     * @return the about information.
+     * @param appType       class from an application or libray for reading package implementation information
+     * @param copyrightYear copyright year can not read from a package
+     * @return the about information
      */
     public static About of(Class<?> appType, String copyrightYear) {
         Package p = appType.getPackage();
@@ -89,7 +89,7 @@ public class About {
     /**
      * Get version as user readable text.
      *
-     * @return user readable text of version.
+     * @return user readable text of version
      */
     public String getVersionText() {
         return MessageFormat.format(RESOURCE_BUNDLE.getString("about.version"), version);
