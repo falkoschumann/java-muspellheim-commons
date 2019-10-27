@@ -19,7 +19,7 @@ import lombok.*;
 @Value
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @SuppressWarnings("checkstyle:VisibilityModifier")
-public class DateTimeInterval {
+public class LocalDateTimeInterval {
 
     /**
      * The start of this interval is inclusive.
@@ -42,12 +42,12 @@ public class DateTimeInterval {
      * @param endExclusive   the end exclusive, not null
      * @return the date-time interval, not null
      */
-    public static DateTimeInterval of(LocalDateTime startInclusive, LocalDateTime endExclusive) {
+    public static LocalDateTimeInterval of(LocalDateTime startInclusive, LocalDateTime endExclusive) {
         if (!startInclusive.isBefore(endExclusive)) {
             throw new IllegalArgumentException("start must be before end");
         }
 
-        return new DateTimeInterval(startInclusive, endExclusive);
+        return new LocalDateTimeInterval(startInclusive, endExclusive);
     }
 
     /**
@@ -60,7 +60,7 @@ public class DateTimeInterval {
      * @return the parsed local date-time interval, not null
      * @throws DateTimeParseException if the text cannot be parsed
      */
-    public static DateTimeInterval parse(@Nonnull CharSequence text) {
+    public static LocalDateTimeInterval parse(@Nonnull CharSequence text) {
         String[] s = text.toString().split("/");
         if (s.length != 2) {
             throw new DateTimeParseException("interval must separate start and end with /", text, 0);
@@ -86,7 +86,7 @@ public class DateTimeInterval {
      * @param other the interval to compare to, not null
      * @return true if this interval is before the specified interval
      */
-    public boolean isBefore(DateTimeInterval other) {
+    public boolean isBefore(LocalDateTimeInterval other) {
         return end.isBefore(other.start) || end.equals(other.start);
     }
 
@@ -106,7 +106,7 @@ public class DateTimeInterval {
      * @param other the interval to compare to, not null
      * @return true if this interval is after the specified interval
      */
-    public boolean isAfter(DateTimeInterval other) {
+    public boolean isAfter(LocalDateTimeInterval other) {
         return start.isAfter(other.end) || start.equals(other.end);
     }
 
@@ -126,7 +126,7 @@ public class DateTimeInterval {
      * @param other the interval to compare to, not null
      * @return true if this interval contains the specified interval
      */
-    public boolean contains(DateTimeInterval other) {
+    public boolean contains(LocalDateTimeInterval other) {
         return (start.isBefore(other.start) || start.equals(other.start)) && (end.isAfter(other.end) || end.equals(other.end));
     }
 
@@ -136,7 +136,7 @@ public class DateTimeInterval {
      * @param other the interval to compare to, not null
      * @return true if this interval abuts the specified interval
      */
-    public boolean abuts(DateTimeInterval other) {
+    public boolean abuts(LocalDateTimeInterval other) {
         return start.equals(other.end) || end.equals(other.start);
     }
 
@@ -146,7 +146,7 @@ public class DateTimeInterval {
      * @param other the interval to compare to, not null
      * @return the interval between this an the other interval or null if there is no gap
      */
-    public DateTimeInterval gap(DateTimeInterval other) {
+    public LocalDateTimeInterval gap(LocalDateTimeInterval other) {
         if (isBefore(other) && !end.equals(other.start)) {
             return of(end, other.start);
         } else if (isAfter(other) && !start.equals(other.end)) {
@@ -162,15 +162,15 @@ public class DateTimeInterval {
      * @param other the interval to compare to, not null
      * @return true if this interval overlaps the specified interval
      */
-    public boolean overlaps(DateTimeInterval other) {
+    public boolean overlaps(LocalDateTimeInterval other) {
         return equals(other) || contains(other) || overlapsStartOf(other) || overlapsEndOf(other);
     }
 
-    private boolean overlapsStartOf(DateTimeInterval other) {
+    private boolean overlapsStartOf(LocalDateTimeInterval other) {
         return other.start.isBefore(end) && end.isBefore(other.end);
     }
 
-    private boolean overlapsEndOf(DateTimeInterval other) {
+    private boolean overlapsEndOf(LocalDateTimeInterval other) {
         return start.isBefore(other.end) && other.end.isBefore(end);
     }
 
@@ -180,7 +180,7 @@ public class DateTimeInterval {
      * @param other the interval to compare to, not null
      * @return the overlapping interval or null if there is no overlap
      */
-    public DateTimeInterval overlap(DateTimeInterval other) {
+    public LocalDateTimeInterval overlap(LocalDateTimeInterval other) {
         if (equals(other)) {
             return this;
         }

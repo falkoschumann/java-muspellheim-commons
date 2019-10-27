@@ -15,14 +15,14 @@ import org.junit.jupiter.params.provider.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.params.provider.Arguments.*;
 
-class DateTimeIntervalTests {
+class LocalDateIntervalTests {
 
     @Test
     void created() {
         // When
-        LocalDateTime start = LocalDateTime.of(2019, 10, 25, 18, 2);
-        LocalDateTime end = LocalDateTime.of(2019, 12, 24, 18, 0);
-        DateTimeInterval interval = DateTimeInterval.of(start, end);
+        LocalDate start = LocalDate.of(2019, 10, 25);
+        LocalDate end = LocalDate.of(2019, 12, 24);
+        LocalDateInterval interval = LocalDateInterval.of(start, end);
 
         // Then
         assertEquals(start, interval.getStart(), "start");
@@ -32,52 +32,52 @@ class DateTimeIntervalTests {
     @Test
     void createInvalid() {
         // When
-        LocalDateTime start = LocalDateTime.of(2019, 10, 25, 18, 2);
-        LocalDateTime end = LocalDateTime.of(2019, 12, 24, 18, 0);
+        LocalDate start = LocalDate.of(2019, 10, 25);
+        LocalDate end = LocalDate.of(2019, 12, 24);
 
         // Then
-        assertThrows(IllegalArgumentException.class, () -> DateTimeInterval.of(end, start), "start after end");
-        assertThrows(IllegalArgumentException.class, () -> DateTimeInterval.of(start, start), "start equals end");
+        assertThrows(IllegalArgumentException.class, () -> LocalDateInterval.of(end, start), "start after end");
+        assertThrows(IllegalArgumentException.class, () -> LocalDateInterval.of(start, start), "start equals end");
     }
 
     @Test
     void duration() {
-        LocalDateTime start = LocalDateTime.of(2019, 10, 25, 18, 2);
-        LocalDateTime end = LocalDateTime.of(2019, 12, 24, 18, 0);
-        DateTimeInterval interval = DateTimeInterval.of(start, end);
+        LocalDate start = LocalDate.of(2019, 10, 25);
+        LocalDate end = LocalDate.of(2019, 12, 24);
+        LocalDateInterval interval = LocalDateInterval.of(start, end);
 
         // When
-        Duration duration = interval.duration();
+        Period period = interval.duration();
 
         // Then
-        assertEquals(Duration.between(start, end), duration);
+        assertEquals(Period.ofMonths(1).plusDays(29), period);
     }
 
     @Test
     void parsed() {
         // When
-        DateTimeInterval parsed = DateTimeInterval.parse("2019-08-16T17:02/2019-09-09T08:50");
+        LocalDateInterval parsed = LocalDateInterval.parse("2019-08-16/2019-09-09");
 
         // Then
-        LocalDateTime start = LocalDateTime.of(2019, 8, 16, 17, 2);
-        LocalDateTime end = LocalDateTime.of(2019, 9, 9, 8, 50);
-        DateTimeInterval interval = DateTimeInterval.of(start, end);
+        LocalDate start = LocalDate.of(2019, 8, 16);
+        LocalDate end = LocalDate.of(2019, 9, 9);
+        LocalDateInterval interval = LocalDateInterval.of(start, end);
         assertEquals(interval, parsed);
     }
 
     @ParameterizedTest
     @MethodSource("compareWithOtherProvider")
     void compareWithOther(String testTitle,
-                          DateTimeInterval interval,
-                          DateTimeInterval other,
+                          LocalDateInterval interval,
+                          LocalDateInterval other,
                           boolean equals,
                           boolean isBefore,
                           boolean isAfter,
                           boolean contains,
                           boolean abuts,
-                          DateTimeInterval gap,
+                          LocalDateInterval gap,
                           boolean overlaps,
-                          DateTimeInterval overlap) {
+                          LocalDateInterval overlap) {
         assertAll(testTitle,
             () -> assertEquals(equals, interval.equals(other), "equals"),
             () -> assertEquals(isBefore, interval.isBefore(other), "isBefore"),
@@ -91,55 +91,55 @@ class DateTimeIntervalTests {
     }
 
     static Stream<Arguments> compareWithOtherProvider() {
-        LocalDateTime before1 = LocalDateTime.of(2019, 2, 16, 17, 2);
-        LocalDateTime before2 = LocalDateTime.of(2019, 3, 9, 8, 50);
-        LocalDateTime start = LocalDateTime.of(2019, 8, 16, 17, 2);
-        LocalDateTime within1 = LocalDateTime.of(2019, 8, 20, 17, 2);
-        LocalDateTime within2 = LocalDateTime.of(2019, 9, 1, 8, 50);
-        LocalDateTime end = LocalDateTime.of(2019, 9, 9, 8, 50);
-        LocalDateTime after1 = LocalDateTime.of(2019, 9, 16, 8, 50);
-        LocalDateTime after2 = LocalDateTime.of(2019, 10, 9, 8, 50);
+        LocalDate before1 = LocalDate.of(2019, 2, 16);
+        LocalDate before2 = LocalDate.of(2019, 3, 9);
+        LocalDate start = LocalDate.of(2019, 8, 16);
+        LocalDate within1 = LocalDate.of(2019, 8, 20);
+        LocalDate within2 = LocalDate.of(2019, 9, 1);
+        LocalDate end = LocalDate.of(2019, 9, 9);
+        LocalDate after1 = LocalDate.of(2019, 9, 16);
+        LocalDate after2 = LocalDate.of(2019, 10, 9);
 
-        DateTimeInterval interval = DateTimeInterval.of(start, end);
+        LocalDateInterval interval = LocalDateInterval.of(start, end);
 
         // arguments: test title, interval, other, equals, isBefore, isAfter, contains, abuts, gap, overlaps, overlap
         return Stream.of(
             arguments("interval is equal other ",
-                interval, DateTimeInterval.of(start, end),
-                true, false, false, true, false, null, true, DateTimeInterval.of(start, end)),
+                interval, LocalDateInterval.of(start, end),
+                true, false, false, true, false, null, true, LocalDateInterval.of(start, end)),
             arguments("interval is after other",
-                interval, DateTimeInterval.of(before1, before2),
-                false, false, true, false, false, DateTimeInterval.of(before2, start), false, null),
+                interval, LocalDateInterval.of(before1, before2),
+                false, false, true, false, false, LocalDateInterval.of(before2, start), false, null),
             arguments("intervals start abuts others end",
-                interval, DateTimeInterval.of(before2, start),
+                interval, LocalDateInterval.of(before2, start),
                 false, false, true, false, true, null, false, null),
             arguments("interval start overlaps other",
-                interval, DateTimeInterval.of(before1, within2),
-                false, false, false, false, false, null, true, DateTimeInterval.of(start, within2)
+                interval, LocalDateInterval.of(before1, within2),
+                false, false, false, false, false, null, true, LocalDateInterval.of(start, within2)
             ),
             arguments("intervals start abuts others start",
-                interval, DateTimeInterval.of(start, within1),
-                false, false, false, true, false, null, true, DateTimeInterval.of(start, within1)
+                interval, LocalDateInterval.of(start, within1),
+                false, false, false, true, false, null, true, LocalDateInterval.of(start, within1)
             ),
             arguments("interval contains other",
-                interval, DateTimeInterval.of(within1, within2),
-                false, false, false, true, false, null, true, DateTimeInterval.of(within1, within2)
+                interval, LocalDateInterval.of(within1, within2),
+                false, false, false, true, false, null, true, LocalDateInterval.of(within1, within2)
             ),
             arguments("intervals end abuts others end",
-                interval, DateTimeInterval.of(within1, end),
-                false, false, false, true, false, null, true, DateTimeInterval.of(within1, end)
+                interval, LocalDateInterval.of(within1, end),
+                false, false, false, true, false, null, true, LocalDateInterval.of(within1, end)
             ),
             arguments("intervals end overlaps other",
-                interval, DateTimeInterval.of(within2, after1),
-                false, false, false, false, false, null, true, DateTimeInterval.of(within2, end)
+                interval, LocalDateInterval.of(within2, after1),
+                false, false, false, false, false, null, true, LocalDateInterval.of(within2, end)
             ),
             arguments("intervals end abuts others start",
-                interval, DateTimeInterval.of(end, after1),
+                interval, LocalDateInterval.of(end, after1),
                 false, true, false, false, true, null, false, null
             ),
             arguments("interval is before other",
-                interval, DateTimeInterval.of(after1, after2),
-                false, true, false, false, false, DateTimeInterval.of(end, after1), false, null
+                interval, LocalDateInterval.of(after1, after2),
+                false, true, false, false, false, LocalDateInterval.of(end, after1), false, null
             )
         );
     }
@@ -147,8 +147,8 @@ class DateTimeIntervalTests {
     @ParameterizedTest
     @MethodSource("compareWithTimeProvider")
     void compareWithTime(String testTitle,
-                         DateTimeInterval interval,
-                         LocalDateTime time,
+                         LocalDateInterval interval,
+                         LocalDate time,
                          boolean isBefore,
                          boolean isAfter,
                          boolean contains) {
@@ -160,13 +160,13 @@ class DateTimeIntervalTests {
     }
 
     static Stream<Arguments> compareWithTimeProvider() {
-        LocalDateTime before = LocalDateTime.of(2019, 7, 8, 10, 32);
-        LocalDateTime start = LocalDateTime.of(2019, 8, 16, 17, 2);
-        LocalDateTime within = LocalDateTime.of(2019, 8, 20, 8, 43);
-        LocalDateTime end = LocalDateTime.of(2019, 9, 9, 8, 50);
-        LocalDateTime after = LocalDateTime.of(2019, 11, 11, 11, 11);
+        LocalDate before = LocalDate.of(2019, 7, 8);
+        LocalDate start = LocalDate.of(2019, 8, 16);
+        LocalDate within = LocalDate.of(2019, 8, 20);
+        LocalDate end = LocalDate.of(2019, 9, 9);
+        LocalDate after = LocalDate.of(2019, 11, 11);
 
-        DateTimeInterval interval = DateTimeInterval.of(start, end);
+        LocalDateInterval interval = LocalDateInterval.of(start, end);
 
         // arguments: test title, interval, time, isBefore, isAfter, contains
         return Stream.of(
