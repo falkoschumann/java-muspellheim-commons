@@ -19,11 +19,11 @@ Add JCenter repository:
 
 Add dependency:
 
-    implementation 'de.muspellheim:muspellheim-commons:1.0.0'
+    implementation 'de.muspellheim:muspellheim-commons:1.2.0'
 
 Or if you use PostgreSQL also:
 
-    implementation 'de.muspellheim:muspellheim-commons:1.0.0'
+    implementation 'de.muspellheim:muspellheim-commons:1.2.0'
     runtimeOnly 'org.postgresql:postgresql:42.2.8'
 
 ### Maven
@@ -46,7 +46,7 @@ Add dependency:
     <dependency>
         <groupId>de.muspellheim</groupId>
         <artifactId>muspellheim-commons</artifactId>
-        <version>1.0.0</version>
+        <version>1.2.0</version>
     </dependency>
 
 Or if you use PostgreSQL also:
@@ -54,7 +54,7 @@ Or if you use PostgreSQL also:
     <dependency>
         <groupId>de.muspellheim</groupId>
         <artifactId>muspellheim-commons</artifactId>
-        <version>1.0.0</version>
+        <version>1.2.0</version>
     </dependency>
     <dependency>
         <groupId>org.postgresql</groupId>
