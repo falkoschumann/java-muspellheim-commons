@@ -14,7 +14,7 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Tag("postgres")
-class ResultSetMapperTests {
+class ConstructorResultSetMapperTests {
 
     private static final String SQL = ""
         + "SELECT\n"
@@ -27,7 +27,7 @@ class ResultSetMapperTests {
     private static final ExampleEntity ENTITY = new ExampleEntity("Foo", 42, 74.7, true, LocalDateTime.of(2000, 12, 31, 23, 59));
 
     @Test
-    void mapByConstructor() throws Exception {
+    void mapped() throws Exception {
         // Given
         DatabaseConfiguration config = DatabaseConfiguration.of("localhost", 5432, "postgres", "", "java_muspellheim_commons");
         PostgresDatabase database = new PostgresDatabase(config);
@@ -43,29 +43,18 @@ class ResultSetMapperTests {
                 entity = mapper.map(resultSet);
             }
         }
+
         // Then
         assertEquals(ENTITY, entity);
     }
 
     @Test
-    void mapBySetter() throws Exception {
-        // Given
-        DatabaseConfiguration config = DatabaseConfiguration.of("localhost", 5432, "postgres", "", "java_muspellheim_commons");
-        PostgresDatabase database = new PostgresDatabase(config);
-        DataSource dataSource = database.getDataSource();
-        ResultSetMapper<ExampleEntity> mapper = new SetterResultSetMapper<>(ExampleEntity.class);
-
+    void noMapper() {
         // When
-        ExampleEntity entity;
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement(SQL)) {
-                ResultSet resultSet = statement.executeQuery();
-                resultSet.next();
-                entity = mapper.map(resultSet);
-            }
-        }
+        Throwable exception = assertThrows(IllegalStateException.class, () -> new ConstructorResultSetMapper<>(BrokenEntity.class));
+
         // Then
-        assertEquals(ENTITY, entity);
+        assertEquals("no column mapper found: class javax.swing.JPanel", exception.getMessage());
     }
 
 }

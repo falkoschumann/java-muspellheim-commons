@@ -237,6 +237,22 @@ public abstract class ResultSetMapper<T> {
     }
 
     /**
+     * Map a result set to a list of entities.
+     *
+     * @param resultSet a result set
+     * @return the mapped entity list
+     * @throws SQLException if an error occurred
+     */
+    public List<T> mapList(ResultSet resultSet) throws SQLException {
+        List<T> list = new ArrayList<>();
+        while (resultSet.next()) {
+            T v = map(resultSet);
+            list.add(v);
+        }
+        return list;
+    }
+
+    /**
      * Map a result set to an entity.
      *
      * @param resultSet a result set
@@ -313,7 +329,11 @@ public abstract class ResultSetMapper<T> {
 
     private static ColumnMapper columnMapper(PropertyDescriptor propertyDescriptor) {
         Class<?> propertyType = propertyDescriptor.getPropertyType();
-        return MAPPINGS.get(propertyType);
+        ColumnMapper columnMapper = MAPPINGS.get(propertyType);
+        if (columnMapper == null) {
+            throw new IllegalStateException("no column mapper found: " + propertyType);
+        }
+        return columnMapper;
     }
 
 }

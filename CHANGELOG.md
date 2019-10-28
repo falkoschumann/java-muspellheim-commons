@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.3.0] - 2019-10-28
+
+### Added
+
+*   `ResultSetMapper`: Add method `resultList()` to map a list of entities from
+    single result set.
+
+### Fixed
+
+*   `ResultSetMapper`: Instead of throwing `NullPointerException` without
+     message throws `IllegalStateException` with missing column mapper. 
+
 ## [v1.2.0] - 2019-10-27
 
 ### Changed
