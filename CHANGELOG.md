@@ -7,11 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v.1.4.0] - 2019-10-29
+
 ### Changed
 
 *   Time intervals can be empty (duration = 0).
 
-## [v1.4.0] - 2019-10-29
+## [v1.3.0] - 2019-10-28
 
 ### Added
 
@@ -53,7 +55,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 *   Common domain exceptions for implementing a repository.
 
 
-[Unreleased]: https://github.com/falkoschumann/java-muspellheim-commons/compare/v1.3.0...HEAD
+[Unreleased]: https://github.com/falkoschumann/java-muspellheim-commons/compare/v1.4.0...HEAD
+[v1.4.0]: https://github.com/falkoschumann/java-muspellheim-commons/compare/v1.3.0...v1.4.0
 [v1.3.0]: https://github.com/falkoschumann/java-muspellheim-commons/compare/v1.2.0...v1.3.0
 [v1.2.0]: https://github.com/falkoschumann/java-muspellheim-commons/compare/v1.1.0...v1.2.0
 [v1.1.0]: https://github.com/falkoschumann/java-muspellheim-commons/compare/v1.0.0...v1.1.0
