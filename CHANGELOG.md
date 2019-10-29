@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+*   Time intervals can be empty (duration = 0).
+
 ## [v1.3.0] - 2019-10-28
 
 ### Added

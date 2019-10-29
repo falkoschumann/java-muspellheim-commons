@@ -42,7 +42,7 @@ public class LocalDateTimeInterval {
      * @return the date-time interval, not null
      */
     public static LocalDateTimeInterval of(LocalDateTime startInclusive, LocalDateTime endExclusive) {
-        if (!startInclusive.isBefore(endExclusive)) {
+        if (startInclusive.isAfter(endExclusive)) {
             throw new IllegalArgumentException("start must be before end");
         }
 

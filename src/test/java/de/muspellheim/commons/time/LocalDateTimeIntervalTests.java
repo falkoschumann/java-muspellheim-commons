@@ -30,6 +30,18 @@ class LocalDateTimeIntervalTests {
     }
 
     @Test
+    void createdEmpty() {
+        // When
+        LocalDateTime start = LocalDateTime.of(2019, 10, 25, 18, 2);
+        LocalDateTime end = LocalDateTime.of(2019, 10, 25, 18, 2);
+        LocalDateTimeInterval interval = LocalDateTimeInterval.of(start, end);
+
+        // Then
+        assertEquals(start, interval.getStart(), "start");
+        assertEquals(end, interval.getEnd(), "end");
+    }
+
+    @Test
     void createInvalid() {
         // When
         LocalDateTime start = LocalDateTime.of(2019, 10, 25, 18, 2);
@@ -37,7 +49,6 @@ class LocalDateTimeIntervalTests {
 
         // Then
         assertThrows(IllegalArgumentException.class, () -> LocalDateTimeInterval.of(end, start), "start after end");
-        assertThrows(IllegalArgumentException.class, () -> LocalDateTimeInterval.of(start, start), "start equals end");
     }
 
     @Test

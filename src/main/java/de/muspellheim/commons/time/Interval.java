@@ -42,7 +42,7 @@ public class Interval {
      * @return the interval, not null
      */
     public static Interval of(Instant startInclusive, Instant endExclusive) {
-        if (!startInclusive.isBefore(endExclusive)) {
+        if (startInclusive.isAfter(endExclusive)) {
             throw new IllegalArgumentException("start must be before end");
         }
 

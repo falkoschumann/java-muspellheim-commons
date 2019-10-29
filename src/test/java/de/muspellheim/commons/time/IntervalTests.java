@@ -30,6 +30,18 @@ class IntervalTests {
     }
 
     @Test
+    void createdEmpty() {
+        // When
+        Instant start = LocalDateTime.of(2019, 10, 25, 18, 2).toInstant(ZoneOffset.UTC);
+        Instant end = LocalDateTime.of(2019, 10, 25, 18, 2).toInstant(ZoneOffset.UTC);
+        Interval interval = Interval.of(start, end);
+
+        // Then
+        assertEquals(start, interval.getStart(), "start");
+        assertEquals(end, interval.getEnd(), "end");
+    }
+
+    @Test
     void createInvalid() {
         // When
         Instant start = LocalDateTime.of(2019, 10, 25, 18, 2).toInstant(ZoneOffset.UTC);
@@ -37,7 +49,6 @@ class IntervalTests {
 
         // Then
         assertThrows(IllegalArgumentException.class, () -> Interval.of(end, start), "start after end");
-        assertThrows(IllegalArgumentException.class, () -> Interval.of(start, start), "start equals end");
     }
 
     @Test
