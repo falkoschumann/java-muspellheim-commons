@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+*   Methods to obtain `LocalDateInterval` for yesterday, today, tomorrow, last
+    days and next days. 
+
 ## [v.1.4.0] - 2019-10-29
 
 ### Changed

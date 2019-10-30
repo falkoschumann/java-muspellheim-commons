@@ -70,6 +70,113 @@ public class LocalDateInterval {
     }
 
     /**
+     * Obtains a instance of {@code DateInterval} for yesterday.
+     *
+     * @return the yesterdays interval
+     */
+    public static LocalDateInterval yesterday() {
+        return yesterday(Clock.systemDefaultZone());
+    }
+
+    /**
+     * Obtains a instance of {@code DateInterval} for yesterday.
+     *
+     * @param clock the clock to use
+     * @return the yesterdays interval
+     */
+    public static LocalDateInterval yesterday(Clock clock) {
+        LocalDate yesterday = LocalDate.now(clock).minusDays(1);
+        return of(yesterday, yesterday);
+    }
+
+    /**
+     * Obtains a instance of {@code DateInterval} for today.
+     *
+     * @return the todays interval
+     */
+    public static LocalDateInterval today() {
+        return tomorrow(Clock.systemDefaultZone());
+    }
+
+    /**
+     * Obtains a instance of {@code DateInterval} for today.
+     *
+     * @param clock the clock to use
+     * @return the todays interval
+     */
+    public static LocalDateInterval today(Clock clock) {
+        LocalDate today = LocalDate.now(clock);
+        return of(today, today);
+    }
+
+    /**
+     * Obtains a instance of {@code DateInterval} for tomorrow.
+     *
+     * @return the tomorrows interval
+     */
+    public static LocalDateInterval tomorrow() {
+        return tomorrow(Clock.systemDefaultZone());
+    }
+
+    /**
+     * Obtains a instance of {@code DateInterval} for tomorrow.
+     *
+     * @param clock the clock to use
+     * @return the tomorrows interval
+     */
+    public static LocalDateInterval tomorrow(Clock clock) {
+        LocalDate tomorrow = LocalDate.now(clock).plusDays(1);
+        return of(tomorrow, tomorrow);
+    }
+
+    /**
+     * Obtains a instance of {@code DateInterval} for the next days.
+     *
+     * @param days the number of next days
+     * @return the next days interval
+     */
+    public static LocalDateInterval nextDays(int days) {
+        return nextDays(days, Clock.systemDefaultZone());
+    }
+
+    /**
+     * Obtains a instance of {@code DateInterval} for the next days.
+     *
+     * @param days  the number of next days
+     * @param clock the clock to use
+     * @return the next days interval
+     */
+    public static LocalDateInterval nextDays(int days, Clock clock) {
+        LocalDate d = LocalDate.now(clock);
+        if (days >= 0) {
+            return of(d, d.plusDays(days));
+        } else {
+            return of(d.minusDays(-days), d);
+        }
+    }
+
+    /**
+     * Obtains a instance of {@code DateInterval} for the last days.
+     *
+     * @param days the number of last days
+     * @return the last days interval
+     */
+    public static LocalDateInterval lastDays(int days) {
+        return lastDays(days, Clock.systemDefaultZone());
+    }
+
+    /**
+     * Obtains a instance of {@code DateInterval} for the last days.
+     *
+     * @param days  the number of last days
+     * @param clock the clock to use
+     * @return the last days interval
+     */
+    public static LocalDateInterval lastDays(int days, Clock clock) {
+        return nextDays(-days, clock);
+    }
+
+    /**
      * Checks if this interval is before the specified date.
      *
      * @param date the date to compare to, not null

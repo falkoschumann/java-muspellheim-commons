@@ -76,6 +76,86 @@ class LocalDateIntervalTests {
         assertEquals(interval, parsed);
     }
 
+    @Test
+    void yesterday() {
+        // Given
+        Instant fixed = LocalDateTime.of(2019, 10, 25, 18, 2).toInstant(ZoneOffset.UTC);
+        Clock clock = Clock.fixed(fixed, ZoneId.systemDefault());
+
+        // When
+        LocalDateInterval yesterday = LocalDateInterval.yesterday(clock);
+
+        // Then
+        LocalDate start = LocalDate.of(2019, 10, 24);
+        LocalDate end = LocalDate.of(2019, 10, 24);
+        LocalDateInterval interval = LocalDateInterval.of(start, end);
+        assertEquals(interval, yesterday);
+    }
+
+    @Test
+    void lastDays() {
+        // Given
+        Instant fixed = LocalDateTime.of(2019, 10, 25, 18, 2).toInstant(ZoneOffset.UTC);
+        Clock clock = Clock.fixed(fixed, ZoneId.systemDefault());
+
+        // When
+        LocalDateInterval lastDays = LocalDateInterval.lastDays(10, clock);
+
+        // Then
+        LocalDate start = LocalDate.of(2019, 10, 15);
+        LocalDate end = LocalDate.of(2019, 10, 25);
+        LocalDateInterval interval = LocalDateInterval.of(start, end);
+        assertEquals(interval, lastDays);
+    }
+
+    @Test
+    void today() {
+        // Given
+        Instant fixed = LocalDateTime.of(2019, 10, 25, 18, 2).toInstant(ZoneOffset.UTC);
+        Clock clock = Clock.fixed(fixed, ZoneId.systemDefault());
+
+        // When
+        LocalDateInterval yesterday = LocalDateInterval.today(clock);
+
+        // Then
+        LocalDate start = LocalDate.of(2019, 10, 25);
+        LocalDate end = LocalDate.of(2019, 10, 25);
+        LocalDateInterval interval = LocalDateInterval.of(start, end);
+        assertEquals(interval, yesterday);
+    }
+
+    @Test
+    void tomorrow() {
+        // Given
+        Instant fixed = LocalDateTime.of(2019, 10, 25, 18, 2).toInstant(ZoneOffset.UTC);
+        Clock clock = Clock.fixed(fixed, ZoneId.systemDefault());
+
+        // When
+        LocalDateInterval yesterday = LocalDateInterval.tomorrow(clock);
+
+        // Then
+        LocalDate start = LocalDate.of(2019, 10, 26);
+        LocalDate end = LocalDate.of(2019, 10, 26);
+        LocalDateInterval interval = LocalDateInterval.of(start, end);
+        assertEquals(interval, yesterday);
+    }
+
+    @Test
+    void nextDays() {
+        // Given
+        Instant fixed = LocalDateTime.of(2019, 10, 25, 18, 2).toInstant(ZoneOffset.UTC);
+        Clock clock = Clock.fixed(fixed, ZoneId.systemDefault());
+
+        // When
+        LocalDateInterval nextDays = LocalDateInterval.nextDays(7, clock);
+
+        // Then
+        LocalDate start = LocalDate.of(2019, 10, 25);
+        LocalDate end = LocalDate.of(2019, 11, 1);
+        LocalDateInterval interval = LocalDateInterval.of(start, end);
+        assertEquals(interval, nextDays);
+    }
+
     @ParameterizedTest
     @MethodSource("compareWithOtherProvider")
     void compareWithOther(String testTitle,
