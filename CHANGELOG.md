@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixes
+
+*   Creating `About` when reading from class object.
+
 ## [v1.5.0] - 2019-10-31
 
 ### Added

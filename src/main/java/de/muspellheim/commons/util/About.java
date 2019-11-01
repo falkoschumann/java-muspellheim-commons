@@ -63,13 +63,7 @@ public class About {
      * @return the about information
      */
     public static About of(Class<?> appType) {
-        Package p = appType.getPackage();
-        return of(
-            p.getImplementationTitle(),
-            Version.parse(p.getImplementationVersion()),
-            LocalDate.now().getYear(),
-            p.getImplementationVendor()
-        );
+        return of(appType, LocalDate.now().getYear());
     }
 
     /**
@@ -84,13 +78,7 @@ public class About {
      */
     @Deprecated
     public static About of(Class<?> appType, String copyrightYear) {
-        Package p = appType.getPackage();
-        return of(
-            p.getImplementationTitle(),
-            Version.parse(p.getImplementationVersion()),
-            copyrightYear,
-            p.getImplementationVendor()
-        );
+        return of(appType, Integer.parseInt(copyrightYear));
     }
 
     /**
@@ -107,7 +95,7 @@ public class About {
         return of(
             p.getImplementationTitle(),
             Version.parse(p.getImplementationVersion()),
-            String.valueOf(copyrightYear),
+            copyrightYear,
             p.getImplementationVendor()
         );
     }
