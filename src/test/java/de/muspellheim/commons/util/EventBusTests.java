@@ -30,18 +30,21 @@ class EventBusTests {
 
     @BeforeEach
     void setUp() {
+        Thread.setDefaultUncaughtExceptionHandler(this::handleException);
+
         stringEvents = new ArrayList<>();
         integerEvents = new ArrayList<>();
         numberEvents = new ArrayList<>();
         doubleEvents = new ArrayList<>();
 
         phaser = new Phaser(1);
+        exception = null;
     }
 
     @Test
     void publish() throws Exception {
         // Given
-        EventBus bus = EventBus.getDefault();
+        EventBus bus = new EventBus("Testing event bus");
         bus.subscribe(String.class, this::consumeString);
         bus.subscribe(Integer.class, this::consumeInt);
 
@@ -63,16 +66,16 @@ class EventBusTests {
     @Test
     void handlerThrowsException() throws Exception {
         // Given
-        Thread.setDefaultUncaughtExceptionHandler((t, e) -> exception = e);
-        EventBus bus = EventBus.getDefault();
+        EventBus bus = new EventBus("throwing exception event bus");
         bus.subscribe(String.class, m -> {
             throw new RuntimeException("Foobar");
         });
         bus.subscribe(String.class, this::consumeString);
 
         // When
+        phaser = new Phaser(1);
         bus.publish("Foo");
-        TimeUnit.SECONDS.sleep(2);
+        phaser.awaitAdvanceInterruptibly(0, 2, TimeUnit.SECONDS);
 
         // Then
         assertAll(
@@ -84,7 +87,7 @@ class EventBusTests {
     @Test
     void unsubscribe() throws Exception {
         // Given
-        EventBus bus = EventBus.getDefault();
+        EventBus bus = new EventBus("Testing event bus");
         Consumer<String> subscriber = this::consumeString;
         bus.subscribe(String.class, subscriber);
 
@@ -104,7 +107,7 @@ class EventBusTests {
     @Test
     void eventTypeHierarchy() throws Exception {
         // Given
-        EventBus bus = EventBus.getDefault();
+        EventBus bus = new EventBus("Testing event bus");
         Consumer<Integer> intSubscriber = this::consumeInt;
         bus.subscribe(Integer.class, intSubscriber);
         Consumer<Number> numberSubscriber = this::consumeNumber;
@@ -113,6 +116,7 @@ class EventBusTests {
         bus.subscribe(Double.class, doubleSubscriber);
 
         // When
+        phaser = new Phaser(4);
         bus.publish(0.815);
         bus.publish(42);
         bus.unsubscribe(Number.class, numberSubscriber);
@@ -120,7 +124,7 @@ class EventBusTests {
         bus.publish(2.718);
         bus.unsubscribe(Integer.class, intSubscriber);
         bus.publish(7);
-        TimeUnit.SECONDS.sleep(2);
+        phaser.awaitAdvanceInterruptibly(0, 2, TimeUnit.SECONDS);
 
         // Then
         assertAll(
@@ -148,6 +152,11 @@ class EventBusTests {
 
     private void consumeDouble(Number event) {
         doubleEvents.add(event);
+        phaser.arrive();
+    }
+
+    private void handleException(Thread t, Throwable e) {
+        exception = e;
         phaser.arrive();
     }
 
