@@ -72,7 +72,7 @@ class EventBusTests {
 
         // When
         bus.publish("Foo");
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(2);
 
         // Then
         assertAll(
@@ -92,7 +92,7 @@ class EventBusTests {
         bus.publish("Foo");
         bus.unsubscribe(subscriber);
         bus.publish("Bar");
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(2);
 
         // Then
         assertAll(
@@ -120,7 +120,7 @@ class EventBusTests {
         bus.publish(2.718);
         bus.unsubscribe(Integer.class, intSubscriber);
         bus.publish(7);
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(2);
 
         // Then
         assertAll(
