@@ -125,9 +125,10 @@ class EventBusTests {
         bus.unsubscribe(Number.class, numberSubscriber);
         bus.unsubscribe(Number.class, doubleSubscriber);
         bus.publish(2.718);
+        phaser.awaitAdvanceInterruptibly(1, 2, TimeUnit.SECONDS);
         bus.unsubscribe(Integer.class, intSubscriber);
         bus.publish(7);
-        phaser.awaitAdvanceInterruptibly(1, 2, TimeUnit.SECONDS);
+        TimeUnit.MILLISECONDS.sleep(500);
 
         // Then
         assertAll(
