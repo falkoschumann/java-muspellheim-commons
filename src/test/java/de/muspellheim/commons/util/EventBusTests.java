@@ -118,7 +118,7 @@ class EventBusTests {
         bus.subscribe(Double.class, doubleSubscriber);
 
         // When
-        phaser = new Phaser(2);
+        phaser = new Phaser(4);
         bus.publish(0.815);
         bus.publish(42);
         phaser.awaitAdvanceInterruptibly(0, 2, TimeUnit.SECONDS);
