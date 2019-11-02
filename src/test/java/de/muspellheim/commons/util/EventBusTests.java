@@ -73,7 +73,7 @@ class EventBusTests {
         bus.subscribe(String.class, this::consumeString);
 
         // When
-        phaser = new Phaser(1);
+        phaser = new Phaser(2);
         bus.publish("Foo");
         phaser.awaitAdvanceInterruptibly(0, 10, TimeUnit.SECONDS);
 
