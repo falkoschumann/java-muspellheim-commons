@@ -53,7 +53,7 @@ class EventBusTests {
         bus.publish("Foo");
         bus.publish(42);
         bus.publish("Bar");
-        phaser.awaitAdvanceInterruptibly(0, 2, TimeUnit.SECONDS);
+        phaser.awaitAdvanceInterruptibly(0, 10, TimeUnit.SECONDS);
 
         // Then
         assertAll(
@@ -75,7 +75,7 @@ class EventBusTests {
         // When
         phaser = new Phaser(1);
         bus.publish("Foo");
-        phaser.awaitAdvanceInterruptibly(0, 2, TimeUnit.SECONDS);
+        phaser.awaitAdvanceInterruptibly(0, 10, TimeUnit.SECONDS);
 
         // Then
         assertAll(
@@ -124,7 +124,7 @@ class EventBusTests {
         bus.publish(2.718);
         bus.unsubscribe(Integer.class, intSubscriber);
         bus.publish(7);
-        phaser.awaitAdvanceInterruptibly(0, 2, TimeUnit.SECONDS);
+        phaser.awaitAdvanceInterruptibly(0, 10, TimeUnit.SECONDS);
 
         // Then
         assertAll(
