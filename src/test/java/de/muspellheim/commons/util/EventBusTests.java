@@ -37,7 +37,6 @@ class EventBusTests {
         numberEvents = new ArrayList<>();
         doubleEvents = new ArrayList<>();
 
-        phaser = new Phaser(1);
         exception = null;
     }
 
@@ -92,9 +91,11 @@ class EventBusTests {
         bus.subscribe(String.class, subscriber);
 
         // When
+        phaser = new Phaser(1);
         bus.publish("Foo");
         bus.unsubscribe(subscriber);
         bus.publish("Bar");
+        phaser.awaitAdvanceInterruptibly(0, 10, TimeUnit.SECONDS);
         TimeUnit.SECONDS.sleep(2);
 
         // Then
@@ -116,7 +117,7 @@ class EventBusTests {
         bus.subscribe(Double.class, doubleSubscriber);
 
         // When
-        phaser = new Phaser(4);
+        phaser = new Phaser(3);
         bus.publish(0.815);
         bus.publish(42);
         bus.unsubscribe(Number.class, numberSubscriber);
