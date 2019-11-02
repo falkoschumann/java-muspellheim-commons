@@ -32,9 +32,39 @@ import lombok.*;
  */
 public class EventBus {
 
-    private static final EventBus INSTANCE = new EventBus();
+    private static final EventBus INSTANCE = new EventBus("Default Event Bus");
 
     private final ConcurrentMap<Class<?>, List<Consumer>> typedSubscribers = new ConcurrentHashMap<>();
+    private final BlockingQueue<Object> queue = new LinkedBlockingQueue<>();
+
+    private final String name;
+
+    /**
+     * Creates an event bus without a specific name;
+     *
+     * @deprecated use {@link #EventBus(String)}
+     */
+    @Deprecated
+    public EventBus() {
+        this.name = null;
+        EventDeliveryTask task = new EventDeliveryTask();
+        Thread t = new Thread(task);
+        t.setDaemon(true);
+        t.start();
+    }
+
+    /**
+     * Creates an event bus with given name.
+     *
+     * @param name the name for the new event bus
+     */
+    public EventBus(String name) {
+        this.name = name;
+        EventDeliveryTask task = new EventDeliveryTask();
+        Thread t = new Thread(task, name);
+        t.setDaemon(true);
+        t.start();
+    }
 
     /**
      * Get the default event bus, can be used as application wide singleton.
@@ -43,6 +73,15 @@ public class EventBus {
      */
     public static EventBus getDefault() {
         return INSTANCE;
+    }
+
+    /**
+     * Obtains the name of this event bus.
+     *
+     * @return the name of this event bus
+     */
+    public String getName() {
+        return name;
     }
 
     /**
@@ -89,20 +128,39 @@ public class EventBus {
      * @param event the event
      */
     public void publish(@NonNull Object event) {
-        Class<?> eventType = event.getClass();
-        typedSubscribers.keySet().stream()
-            .filter(type -> type.isAssignableFrom(eventType))
-            .flatMap(type -> typedSubscribers.get(type).stream())
-            .forEach(subscriber -> publish(event, subscriber));
+        try {
+            queue.put(event);
+        } catch (InterruptedException ignored) {
+        }
     }
 
-    @SuppressWarnings("unchecked")
-    private static void publish(Object event, Consumer subscriber) {
-        try {
-            subscriber.accept(event);
-        } catch (Exception e) {
-            Thread.currentThread().getUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
+    private class EventDeliveryTask implements Runnable {
+
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    Object event = queue.take();
+                    Class<?> eventType = event.getClass();
+                    typedSubscribers.keySet().stream()
+                        .filter(type -> type.isAssignableFrom(eventType))
+                        .flatMap(type -> typedSubscribers.get(type).stream())
+                        .forEach(subscriber -> publish(event, subscriber));
+                } catch (InterruptedException e) {
+                    break;
+                }
+            }
         }
+
+        @SuppressWarnings("unchecked")
+        private void publish(Object event, Consumer subscriber) {
+            try {
+                subscriber.accept(event);
+            } catch (Exception e) {
+                Thread.currentThread().getUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
+            }
+        }
+
     }
 
 }
