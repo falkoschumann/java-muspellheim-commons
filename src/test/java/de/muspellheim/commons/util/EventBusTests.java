@@ -95,8 +95,9 @@ class EventBusTests {
         bus.publish("Foo");
         phaser.awaitAdvanceInterruptibly(0, 2, TimeUnit.SECONDS);
         bus.unsubscribe(subscriber);
+        TimeUnit.MILLISECONDS.sleep(200);
         bus.publish("Bar");
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.MILLISECONDS.sleep(200);
 
         // Then
         assertAll(
@@ -123,12 +124,14 @@ class EventBusTests {
         phaser.awaitAdvanceInterruptibly(0, 2, TimeUnit.SECONDS);
         bus.unsubscribe(Number.class, numberSubscriber);
         bus.unsubscribe(Number.class, doubleSubscriber);
+        TimeUnit.MILLISECONDS.sleep(200);
         phaser.register();
         bus.publish(2.718);
         phaser.awaitAdvanceInterruptibly(1, 2, TimeUnit.SECONDS);
         bus.unsubscribe(Integer.class, intSubscriber);
+        TimeUnit.MILLISECONDS.sleep(200);
         bus.publish(7);
-        TimeUnit.MILLISECONDS.sleep(500);
+        TimeUnit.MILLISECONDS.sleep(200);
 
         // Then
         assertAll(
