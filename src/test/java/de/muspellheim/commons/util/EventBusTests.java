@@ -121,9 +121,9 @@ class EventBusTests {
         bus.publish(0.815);
         bus.publish(42);
         phaser.awaitAdvanceInterruptibly(0, 2, TimeUnit.SECONDS);
-        phaser.bulkRegister(2);
         bus.unsubscribe(Number.class, numberSubscriber);
         bus.unsubscribe(Number.class, doubleSubscriber);
+        phaser.register();
         bus.publish(2.718);
         phaser.awaitAdvanceInterruptibly(1, 2, TimeUnit.SECONDS);
         bus.unsubscribe(Integer.class, intSubscriber);
