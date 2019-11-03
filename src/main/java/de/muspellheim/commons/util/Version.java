@@ -5,6 +5,7 @@
 
 package de.muspellheim.commons.util;
 
+import java.util.*;
 import java.util.regex.*;
 
 import lombok.*;
@@ -126,7 +127,7 @@ public class Version implements Comparable<Version> {
             return result;
         }
 
-        if (preRelease == o.preRelease) {
+        if (Objects.equals(preRelease, o.preRelease)) {
             return 0;
         }
         if (preRelease == null) {
