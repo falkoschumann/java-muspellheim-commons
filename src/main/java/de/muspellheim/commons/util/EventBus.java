@@ -131,6 +131,7 @@ public class EventBus {
         try {
             queue.put(event);
         } catch (InterruptedException ignored) {
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -138,7 +139,7 @@ public class EventBus {
 
         @Override
         public void run() {
-            while (true) {
+            while (!Thread.currentThread().isInterrupted()) {
                 try {
                     Object event = queue.take();
                     Class<?> eventType = event.getClass();
@@ -147,7 +148,7 @@ public class EventBus {
                         .flatMap(type -> typedSubscribers.get(type).stream())
                         .forEach(subscriber -> publish(event, subscriber));
                 } catch (InterruptedException e) {
-                    break;
+                    Thread.currentThread().interrupt();
                 }
             }
         }
