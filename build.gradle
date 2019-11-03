@@ -219,6 +219,6 @@ lombok {
 
 sonarqube {
     properties {
-        sonar.projectKey = falkoschumann_java-muspellheim-commons
+        sonar.projectKey = "falkoschumann_java-muspellheim-commons"
     }
 }
