@@ -11,3 +11,12 @@ services:
 
 before_script:
   - psql -c 'create database java_muspellheim_commons;' -U postgres
+
+addons:
+  sonarcloud:
+    organization: "falkoschumann"
+    token:
+      secure: "pMWdmyVw03ySz9JwKb5BWkpyWNI0QcFrTuHCfNuTdqfRtEJDjTaSsynie0elrrOFNQ3JuZy5pJaxw/BRmycCU8sO54n1EgWDyZ0PnbB2VkcjE5dkMEFMkD6mFNw144xhwDjgNTb21M9+YRAike+9h41il5rZsurTfWHxcSdmHPtUGZSTx+juOjWwdKPk8EjSGsg9AXn4Z0s5xq5jc2xTOP7nO3BUXZmIXtp3HLw5daLdLyfDQha8jU9ryT0bL79ZUpRETUbhbqoMEXLJ+db5NZFMyYB6WB571Ks8xIAQe1E8GEBThfxWjOAzCMk5pLuZezsea7BuNuzub8fLktaXCdE3WxNd1BCIFG411iaPNfWMmkgkOnJYl2ttC0Qn/7K2RuKcg62ZFHXT9j4JFgafuzRLBbFz0miRs5a7kDSfXHeKhVg8XfrKDNZkTsqduL8aLLhqvfDt+KReLBBabbdi1qI6I2SJgtKVaUxK8rH1Z7eSe78VTo4QQlgavDZpeKP0fxkdWZ+i86kcC/6+qmqftzBoB9xWPeNrPHEBSvZr1j49uzkutF8dWln3X5rwYz3yoMHM+i0YwdW1cKlNnWhzB+rZbPWkKTkG1Ddi7I6Lcd8kCviLYaZ85XKZWqa6pnTeYFv6KhFTvPKA5oc6P9mRSh8VuXSE2nAWWxlV66a2ClE="
+
+script:
+  - ./gradlew sonarqube
