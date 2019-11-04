@@ -1,5 +1,7 @@
 [![Download](https://api.bintray.com/packages/falkoschumann/maven/muspellheim-commons/images/download.svg)](https://bintray.com/falkoschumann/maven/muspellheim-commons)
 [![Build Status](https://travis-ci.org/falkoschumann/java-muspellheim-commons.png?branch=master)](https://travis-ci.org/falkoschumann/java-muspellheim-commons)
+[![Sonar Coverage](https://img.shields.io/sonar/coverage/falkoschumann_java-muspellheim-commons?server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/dashboard?id=falkoschumann_java-muspellheim-commons)
+[![Sonar Quality Gate](https://img.shields.io/sonar/quality_gate/falkoschumann_java-muspellheim-commons?server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/dashboard?id=falkoschumann_java-muspellheim-commons)
 
 # Muspellheim Commons
 
