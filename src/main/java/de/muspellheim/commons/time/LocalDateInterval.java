@@ -315,4 +315,9 @@ public class LocalDateInterval {
         return Period.between(start, end);
     }
 
+    @Override
+    public String toString() {
+        return start + "/" + end;
+    }
+
 }

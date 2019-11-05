@@ -156,6 +156,20 @@ class LocalDateIntervalTests {
         assertEquals(interval, nextDays);
     }
 
+    @Test
+    void testToString() {
+        // Given
+        LocalDate start = LocalDate.of(2019, 8, 16);
+        LocalDate end = LocalDate.of(2019, 9, 9);
+        LocalDateInterval interval = LocalDateInterval.of(start, end);
+
+        // When
+        String s = interval.toString();
+
+        // Then
+        assertEquals("2019-08-16/2019-09-09", s);
+    }
+
     @ParameterizedTest
     @MethodSource("compareWithOtherProvider")
     void compareWithOther(String testTitle,

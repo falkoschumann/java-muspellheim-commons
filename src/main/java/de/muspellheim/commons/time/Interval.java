@@ -208,4 +208,9 @@ public class Interval {
         return Duration.between(start, end);
     }
 
+    @Override
+    public String toString() {
+        return start + "/" + end;
+    }
+
 }

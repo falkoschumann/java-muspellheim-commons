@@ -76,6 +76,20 @@ class IntervalTests {
         assertEquals(interval, parsed);
     }
 
+    @Test
+    void testToString() {
+        // Given
+        Instant start = LocalDateTime.of(2019, 8, 16, 17, 2, 34).toInstant(ZoneOffset.UTC);
+        Instant end = LocalDateTime.of(2019, 9, 9, 8, 50, 58).toInstant(ZoneOffset.UTC);
+        Interval interval = Interval.of(start, end);
+
+        // When
+        String s = interval.toString();
+
+        // Then
+        assertEquals("2019-08-16T17:02:34Z/2019-09-09T08:50:58Z", s);
+    }
+
     @ParameterizedTest
     @MethodSource("compareWithOtherProvider")
     void compareWithOther(String testTitle,

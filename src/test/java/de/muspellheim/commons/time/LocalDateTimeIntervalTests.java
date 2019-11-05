@@ -76,6 +76,20 @@ class LocalDateTimeIntervalTests {
         assertEquals(interval, parsed);
     }
 
+    @Test
+    void testToString() {
+        // Given
+        LocalDateTime start = LocalDateTime.of(2019, 8, 16, 17, 2);
+        LocalDateTime end = LocalDateTime.of(2019, 9, 9, 8, 50);
+        LocalDateTimeInterval interval = LocalDateTimeInterval.of(start, end);
+
+        // When
+        String s = interval.toString();
+
+        // Then
+        assertEquals("2019-08-16T17:02/2019-09-09T08:50", s);
+    }
+
     @ParameterizedTest
     @MethodSource("compareWithOtherProvider")
     void compareWithOther(String testTitle,
