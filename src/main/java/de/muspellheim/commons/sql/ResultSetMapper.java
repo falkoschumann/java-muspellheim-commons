@@ -125,6 +125,40 @@ public abstract class ResultSetMapper<T> {
     }
 
     /**
+     * Map a result set to a a value.
+     *
+     * @param resultSet   a result set
+     * @param columnLabel a column label
+     * @param type        the mapped value class
+     * @param <T>         the mapped value type
+     * @return the mapped value
+     * @throws SQLException if an error occurred
+     */
+    public static <T> T mapValue(ResultSet resultSet, String columnLabel, Class<T> type) throws SQLException {
+        return getColumnMapper(type).map(resultSet, columnLabel);
+    }
+
+    /**
+     * Map a result set to a list of values.
+     *
+     * @param resultSet a result set
+     * @param type      the mapped value class
+     * @param <T>       the mapped value type
+     * @return the mapped value list
+     * @throws SQLException if an error occurred
+     */
+    public static <T> List<T> mapValueList(ResultSet resultSet, Class<T> type) throws SQLException {
+        ColumnMapper<T> columnMapper = getColumnMapper(type);
+        String columnLabel = resultSet.getMetaData().getColumnLabel(1);
+        List<T> values = new ArrayList<>();
+        while (resultSet.next()) {
+            T e = columnMapper.map(resultSet, columnLabel);
+            values.add(e);
+        }
+        return values;
+    }
+
+    /**
      * Return the double value of a column or <code>null</code>.
      *
      * @param resultSet   a result set
@@ -262,6 +296,21 @@ public abstract class ResultSetMapper<T> {
     public abstract T map(ResultSet resultSet) throws SQLException;
 
     /**
+     * Obtains the mapper for a given type.
+     *
+     * @param type the class to map
+     * @param <T>  the type to map
+     * @return the column mapper
+     */
+    protected static <T> ColumnMapper<T> getColumnMapper(Class<T> type) {
+        ColumnMapper<T> columnMapper = (ColumnMapper<T>) MAPPINGS.get(type);
+        if (columnMapper == null) {
+            throw new NoSuchElementException("no column mapper found for: " + type);
+        }
+        return columnMapper;
+    }
+
+    /**
      * Get the property name for a column label.
      *
      * @param columnLabel a column label
@@ -329,11 +378,7 @@ public abstract class ResultSetMapper<T> {
 
     private static ColumnMapper columnMapper(PropertyDescriptor propertyDescriptor) {
         Class<?> propertyType = propertyDescriptor.getPropertyType();
-        ColumnMapper columnMapper = MAPPINGS.get(propertyType);
-        if (columnMapper == null) {
-            throw new IllegalStateException("no column mapper found: " + propertyType);
-        }
-        return columnMapper;
+        return getColumnMapper(propertyType);
     }
 
 }

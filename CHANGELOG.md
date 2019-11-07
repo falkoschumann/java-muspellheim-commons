@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.8.0] - 2019-11-07
+
+### Added
+
+*   Map value and value list from single column with ´ResultSetMapper`.
+
 ## [v1.7.0] - 2019-11-05
 
 ### Changes

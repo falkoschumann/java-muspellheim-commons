@@ -18,16 +18,16 @@
     <Match>
         <Or>
             <Class name="de.muspellheim.commons.sql.PostgresDatabaseTests"/>
-            <Class name="de.muspellheim.commons.sql.ConstructorResultSetMapperTests"/>
-            <Class name="de.muspellheim.commons.sql.SetterResultSetMapperTests"/>
+            <Class name="de.muspellheim.commons.sql.ResultSetMapperTests"/>
+            <Class name="de.muspellheim.commons.sql.BaseResultSetMapperTests"/>
         </Or>
         <Bug pattern="OBL_UNSATISFIED_OBLIGATION"/>
     </Match>
     <Match>
         <Or>
             <Class name="de.muspellheim.commons.sql.PostgresDatabaseTests"/>
-            <Class name="de.muspellheim.commons.sql.ConstructorResultSetMapperTests"/>
-            <Class name="de.muspellheim.commons.sql.SetterResultSetMapperTests"/>
+            <Class name="de.muspellheim.commons.sql.ResultSetMapperTests"/>
+            <Class name="de.muspellheim.commons.sql.BaseResultSetMapperTests"/>
         </Or>
         <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE"/>
     </Match>
