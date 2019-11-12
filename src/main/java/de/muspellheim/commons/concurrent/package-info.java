@@ -4,6 +4,6 @@
  */
 
 /**
- * Added time intervals.
+ * Contains additional executor.
  */
-package de.muspellheim.commons.time;
+package de.muspellheim.commons.concurrent;
