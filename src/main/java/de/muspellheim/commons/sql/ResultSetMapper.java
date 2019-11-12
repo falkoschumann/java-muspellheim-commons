@@ -76,7 +76,7 @@ public abstract class ResultSetMapper<T> {
 
     private final Class<T> type;
     private final Map<String, String> mappedColumns;
-    private final Map<String, ColumnMapper> mappings;
+    private final Map<String, ColumnMapper> typeMappings;
 
     /**
      * Create a mapper.
@@ -86,7 +86,7 @@ public abstract class ResultSetMapper<T> {
     public ResultSetMapper(Class<T> type) {
         this.type = type;
         mappedColumns = createMappedColumns();
-        mappings = createMappings();
+        typeMappings = createMappings();
     }
 
     /**
@@ -330,7 +330,7 @@ public abstract class ResultSetMapper<T> {
      * @see #registerMapping(Class, ColumnMapper)
      */
     protected Object mapColumn(ResultSet resultSet, String columnLabel) throws SQLException {
-        ColumnMapper mapper = mappings.get(columnLabel);
+        ColumnMapper mapper = typeMappings.get(columnLabel);
         return mapper.map(resultSet, columnLabel);
     }
 
