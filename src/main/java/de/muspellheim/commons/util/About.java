@@ -74,21 +74,6 @@ public class About {
      * @param appType       class from an application or libray for reading package implementation information
      * @param copyrightYear copyright year can not read from a package
      * @return the about information
-     * @deprecated use {@link #of(Class, int)}
-     */
-    @Deprecated
-    public static About of(Class<?> appType, String copyrightYear) {
-        return of(appType, Integer.parseInt(copyrightYear));
-    }
-
-    /**
-     * Create about information by reading title, version and vendor from a package.
-     * <p>
-     * Use a default rights.
-     *
-     * @param appType       class from an application or libray for reading package implementation information
-     * @param copyrightYear copyright year can not read from a package
-     * @return the about information
      */
     public static About of(Class<?> appType, int copyrightYear) {
         Package p = appType.getPackage();

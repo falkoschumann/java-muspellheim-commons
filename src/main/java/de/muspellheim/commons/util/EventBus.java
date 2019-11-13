@@ -40,20 +40,6 @@ public class EventBus {
     private final String name;
 
     /**
-     * Creates an event bus without a specific name;
-     *
-     * @deprecated use {@link #EventBus(String)}
-     */
-    @Deprecated
-    public EventBus() {
-        this.name = null;
-        EventDeliveryTask task = new EventDeliveryTask();
-        Thread t = new Thread(task);
-        t.setDaemon(true);
-        t.start();
-    }
-
-    /**
      * Creates an event bus with given name.
      *
      * @param name the name for the new event bus
