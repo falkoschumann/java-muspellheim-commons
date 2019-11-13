@@ -3,7 +3,7 @@
  * Copyright (c) 2019 Falko Schumann
  */
 
-package de.muspellheim.commons.util;
+package de.muspellheim.commons.test;
 
 import java.lang.annotation.*;
 
