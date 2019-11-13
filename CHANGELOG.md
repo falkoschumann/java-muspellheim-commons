@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+*   Query canceled exception for repository.
+
 ### Changed
 
 *   Annotation `@TestSeam` moved to new package `test`. 
