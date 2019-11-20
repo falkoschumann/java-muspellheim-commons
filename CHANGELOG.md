@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+*   `ConfigurationNotFoundException` will be thrown if properties file was not
+    found.
+
 ## [v2.0.0] - 2019-11-13
 
 ### Added

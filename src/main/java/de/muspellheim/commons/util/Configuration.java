@@ -52,7 +52,7 @@ public class Configuration {
         String filename = String.format("/%s.properties", basename);
         InputStream in = getClass().getResourceAsStream(filename);
         if (in == null) {
-            throw new ConfigurationException("Defaults not exists");
+            throw new ConfigurationNotFoundException("Defaults not exists");
         }
 
         try (Reader reader = new InputStreamReader(in, CHARSET)) {
@@ -83,6 +83,9 @@ public class Configuration {
      * @throws ConfigurationException if configuration can not be loaded
      */
     public void load(@NonNull Path propertiesFile) throws ConfigurationException {
+        if (!Files.exists(propertiesFile)) {
+            throw new ConfigurationNotFoundException("File not found: " + propertiesFile);
+        }
         try (Reader reader = Files.newBufferedReader(propertiesFile, CHARSET)) {
             properties.load(reader);
         } catch (IOException e) {
