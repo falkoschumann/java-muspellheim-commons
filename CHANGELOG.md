@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v2.1.0] - 2019-11-20
+
 ### Added
 
 *   `ConfigurationNotFoundException` will be thrown if properties file was not
@@ -109,7 +111,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 *   Common domain exceptions for implementing a repository.
 
 
-[Unreleased]: https://github.com/falkoschumann/java-muspellheim-commons/compare/v1.7.0...HEAD
+[Unreleased]: https://github.com/falkoschumann/java-muspellheim-commons/compare/v2.1.0...HEAD
+[v2.1.0]: https://github.com/falkoschumann/java-muspellheim-commons/compare/v2.0.0...v2.1.0
+[v2.0.0]: https://github.com/falkoschumann/java-muspellheim-commons/compare/v1.9.0...v2.0.0
+[v1.9.0]: https://github.com/falkoschumann/java-muspellheim-commons/compare/v1.8.0...v1.9.0
+[v1.8.0]: https://github.com/falkoschumann/java-muspellheim-commons/compare/v1.7.0...v1.8.0
 [v1.7.0]: https://github.com/falkoschumann/java-muspellheim-commons/compare/v1.6.0...v1.7.0
 [v1.6.0]: https://github.com/falkoschumann/java-muspellheim-commons/compare/v1.5.0...v1.6.0
 [v1.5.0]: https://github.com/falkoschumann/java-muspellheim-commons/compare/v1.4.0...v1.5.0
