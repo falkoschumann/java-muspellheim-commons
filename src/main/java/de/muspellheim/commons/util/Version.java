@@ -22,12 +22,16 @@ import lombok.With;
 @RequiredArgsConstructor(staticName = "of")
 public class Version implements Comparable<Version> {
 
-  private static final String VERSION = "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)";
-  private static final String PRE_RELEASE =
+  private static final String VERSION_REGEX = "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)";
+
+  private static final String PRE_RELEASE_REGEX =
       "(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)"
           + "(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?";
-  public static final String BUILD_METADATA = "(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$";
-  private static final Pattern PATTERN = Pattern.compile(VERSION + PRE_RELEASE + BUILD_METADATA);
+
+  public static final String BUILD_METADATA_REGEX = "(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$";
+
+  private static final Pattern PATTERN =
+      Pattern.compile(VERSION_REGEX + PRE_RELEASE_REGEX + BUILD_METADATA_REGEX);
 
   /**
    * A new major version indicates incombatible changes.

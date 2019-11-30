@@ -93,7 +93,7 @@ public class EventBus {
    * @param subscriber the subscriber to unsubscribe
    */
   public void unsubscribe(@NonNull Consumer<?> subscriber) {
-    subscribers.values().forEach(subscribers -> subscribers.remove(subscriber));
+    subscribers.values().forEach(e -> e.remove(subscriber));
   }
 
   /**
@@ -108,7 +108,7 @@ public class EventBus {
     subscribers.keySet().stream()
         .filter(eventType::isAssignableFrom)
         .map(subscribers::get)
-        .forEach(subscribers -> subscribers.remove(subscriber));
+        .forEach(e -> e.remove(subscriber));
   }
 
   /**
