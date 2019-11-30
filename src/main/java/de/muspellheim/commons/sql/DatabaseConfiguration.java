@@ -5,49 +5,47 @@
 
 package de.muspellheim.commons.sql;
 
-import lombok.*;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Value;
 
-/**
- * Collect information for a database connection.
- */
+/** Collect information for a database connection. */
 @Value
 @RequiredArgsConstructor(staticName = "of")
-@SuppressWarnings("checkstyle:VisibilityModifier")
 public class DatabaseConfiguration {
 
-    /**
-     * Host ip or hostname.
-     *
-     * @return the host
-     */
-    String host;
+  /**
+   * Host ip or hostname.
+   *
+   * @return the host
+   */
+  String host;
 
-    /**
-     * Port.
-     *
-     * @return the port
-     */
-    int port;
+  /**
+   * Port.
+   *
+   * @return the port
+   */
+  int port;
 
-    /**
-     * Username.
-     *
-     * @return the user
-     */
-    @NonNull String user;
+  /**
+   * Username.
+   *
+   * @return the user
+   */
+  @NonNull String user;
 
-    /**
-     * User password.
-     *
-     * @return the passwors
-     */
-    String password;
+  /**
+   * User password.
+   *
+   * @return the passwors
+   */
+  String password;
 
-    /**
-     * Database name.
-     *
-     * @return the database
-     */
-    @NonNull String database;
-
+  /**
+   * Database name.
+   *
+   * @return the database
+   */
+  @NonNull String database;
 }

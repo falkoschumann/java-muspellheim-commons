@@ -2,14 +2,22 @@ import java.nio.file.Files
 import java.nio.file.Paths
 
 plugins {
-    id 'java-library'
-    id 'checkstyle'
-    id 'jacoco'
-    id 'maven-publish'
-    id 'com.jfrog.bintray' version '1.8.4'
-    id 'com.github.spotbugs' version '2.0.1'
-    id 'io.freefair.lombok' version '4.1.4'
-    id 'org.sonarqube' version '2.8'
+  // Compile
+  id 'java-library'
+  id 'io.freefair.lombok' version '4.1.4'
+
+  // Test
+  id 'jacoco'
+
+  // Check
+  id 'com.diffplug.gradle.spotless' version '3.26.1'
+  id 'checkstyle'
+  id 'com.github.spotbugs' version '2.0.1'
+  id 'org.sonarqube' version '2.8'
+
+  // Deploy
+  id 'maven-publish'
+  id 'com.jfrog.bintray' version '1.8.4'
 }
 
 version = '2.1.0'
@@ -21,190 +29,64 @@ version = '2.1.0'
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 compileJava.options.encoding = 'UTF-8'
+compileJava.options.compilerArgs += ["-Xlint:all", "-Xlint:-serial"]
 compileTestJava.options.encoding = 'UTF-8'
+compileTestJava.options.compilerArgs += ["-Xlint:all", "-Xlint:-serial"]
 
 java {
-    registerFeature("postgresqlSupport") {
-        usingSourceSet(sourceSets.main)
-    }
+  registerFeature("postgresqlSupport") {
+    usingSourceSet(sourceSets.main)
+  }
 }
 
 repositories {
-    jcenter()
+  jcenter()
 }
 
 dependencies {
-    postgresqlSupportImplementation 'org.postgresql:postgresql:42.2.8'
+  postgresqlSupportImplementation 'org.postgresql:postgresql:42.2.8'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.5.2'
-    testRuntimeOnly 'org.postgresql:postgresql:42.2.8'
+  testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
+  testImplementation 'org.junit.jupiter:junit-jupiter-params:5.5.2'
+  testRuntimeOnly 'org.postgresql:postgresql:42.2.8'
 }
 
 jar {
-    manifest {
-        attributes 'Implementation-Title': 'Muspellheim Commons'
-        attributes 'Implementation-Version': project.version
-        attributes 'Implementation-Vendor': 'Falko Schumann'
-    }
+  manifest {
+    attributes 'Implementation-Title': 'Muspellheim Commons'
+    attributes 'Implementation-Version': project.version
+    attributes 'Implementation-Vendor': 'Falko Schumann'
+  }
 }
 
 test {
-    useJUnitPlatform()
-    testLogging {
-        events 'passed', 'skipped', 'failed'
-        exceptionFormat = 'full'
-    }
+  useJUnitPlatform()
+  testLogging {
+    events 'passed', 'skipped', 'failed'
+    exceptionFormat = 'full'
+  }
 }
 
 javadoc {
-    title = "Muspellheim Commons v${project.version}"
-    options.links += 'https://docs.oracle.com/en/java/javase/11/docs/api/'
-    options.overview = file('src/main/javadoc/overview.html')
+  title = "Muspellheim Commons v${project.version}"
+  options.links += 'https://docs.oracle.com/en/java/javase/11/docs/api/'
+  options.overview = file('src/main/javadoc/overview.html')
 }
 build.dependsOn += javadoc
 
 task javadocJar(type: Jar) {
-    from javadoc
-    archiveClassifier = 'javadoc'
+  from javadoc
+  archiveClassifier = 'javadoc'
 }
 
 task sourcesJar(type: Jar) {
-    from sourceSets.main.allJava
-    archiveClassifier = 'sources'
+  from sourceSets.main.allJava
+  archiveClassifier = 'sources'
 }
 
 artifacts {
-    archives sourcesJar
-    archives javadocJar
-}
-
-// ###################################################################
-// Checkstyle
-// ###################################################################
-
-checkstyle {
-    toolVersion '8.24'
-}
-
-// ###################################################################
-// Jacoco
-// ###################################################################
-
-jacocoTestReport {
-    reports {
-        html.enabled true
-        xml.enabled true
-    }
-}
-
-jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-            limit {
-                value = 'COVEREDRATIO'
-                minimum = 0.8
-            }
-        }
-        rule {
-            element = 'METHOD'
-            limit {
-                counter = 'COMPLEXITY'
-                value = 'TOTALCOUNT'
-                maximum = 10
-            }
-        }
-    }
-}
-check.dependsOn += [jacocoTestCoverageVerification, jacocoTestReport]
-
-// ###################################################################
-// Bintray
-// ###################################################################
-
-ext {
-    if (!project.hasProperty('bintrayUser')) {
-        bintrayUser = 'bintray_user'
-    }
-    if (!project.hasProperty('bintrayKey')) {
-        bintrayKey = 'bintray_key'
-    }
-}
-
-bintray {
-    user = bintrayUser
-    key = bintrayKey
-    publications = ['MuspellheimCommonsPublication']
-    dryRun = false
-    pkg {
-        repo = 'maven'
-        name = project.name
-        userOrg = bintrayUser
-        licenses = ['MIT']
-        vcsUrl = "https://github.com/falkoschumann/java-${project.name}.git"
-        githubRepo = "falkoschumann/java-${project.name}"
-        version {
-            name = project.version
-            desc = 'Bundles common classes for developing Java apps.'
-            released = new Date()
-            vcsTag = "v${project.version}"
-        }
-    }
-}
-
-// ###################################################################
-// Maven
-// ###################################################################
-
-publishing {
-    publications {
-        MuspellheimCommonsPublication(MavenPublication) {
-            from components.java
-            artifact sourcesJar
-            artifact javadocJar
-            groupId 'de.muspellheim'
-            artifactId project.name
-            version project.version
-        }
-    }
-}
-
-// ###################################################################
-// SpotBugs
-// ###################################################################
-
-spotbugs {
-    excludeFilter = file("$rootDir/config/spotbugs/excludeFilter.xml")
-}
-
-tasks.withType(com.github.spotbugs.SpotBugsTask) {
-    reports {
-        xml.enabled = false
-        html.enabled = false
-        text.enabled = true
-    }
-}
-
-task printSpotBugsReportMain() {
-    doLast {
-        printSpotBugsReport('main')
-    }
-}
-spotbugsMain.finalizedBy printSpotBugsReportMain
-
-task printSpotBugsReportTest() {
-    doLast {
-        printSpotBugsReport('test')
-    }
-}
-spotbugsTest.finalizedBy printSpotBugsReportTest
-
-static def printSpotBugsReport(String sourceSet) {
-    def report = Paths.get("build/reports/spotbugs/${sourceSet}.text")
-    if (Files.exists(report)) {
-        def lines = Files.readAllLines(report)
-        lines.forEach { l -> println(l) }
-    }
+  archives sourcesJar
+  archives javadocJar
 }
 
 // ###################################################################
@@ -212,8 +94,96 @@ static def printSpotBugsReport(String sourceSet) {
 // ###################################################################
 
 lombok {
-    config['lombok.nonNull.exceptionType'] = 'Jdk'
-    config['lombok.anyConstructor.addConstructorProperties'] = 'true'
+  config['lombok.nonNull.exceptionType'] = 'Jdk'
+  config['lombok.anyConstructor.addConstructorProperties'] = 'true'
+}
+
+// ###################################################################
+// Jacoco
+// ###################################################################
+
+jacocoTestCoverageVerification {
+  violationRules {
+    rule {
+      limit {
+        value = 'COVEREDRATIO'
+        minimum = 0.8
+      }
+    }
+    rule {
+      element = 'METHOD'
+      limit {
+        counter = 'COMPLEXITY'
+        value = 'TOTALCOUNT'
+        maximum = 10
+      }
+    }
+  }
+}
+check.dependsOn += [jacocoTestCoverageVerification, jacocoTestReport]
+
+jacocoTestReport {
+  reports {
+    html.enabled true
+    xml.enabled true
+  }
+}
+
+// ###################################################################
+// Spotless
+// ###################################################################
+
+spotless {
+  java {
+    googleJavaFormat()
+    licenseHeaderFile 'config/spotless/license.header'
+  }
+}
+
+// ###################################################################
+// Checkstyle
+// ###################################################################
+
+checkstyle {
+  maxWarnings = 0
+}
+
+// ###################################################################
+// SpotBugs
+// ###################################################################
+
+spotbugs {
+  excludeFilter = file("$rootDir/config/spotbugs/excludeFilter.xml")
+}
+
+tasks.withType(com.github.spotbugs.SpotBugsTask) {
+  reports {
+    xml.enabled = false
+    html.enabled = false
+    text.enabled = true
+  }
+}
+
+task printSpotBugsReportMain() {
+  doLast {
+    printSpotBugsReport('main')
+  }
+}
+spotbugsMain.finalizedBy printSpotBugsReportMain
+
+task printSpotBugsReportTest() {
+  doLast {
+    printSpotBugsReport('test')
+  }
+}
+spotbugsTest.finalizedBy printSpotBugsReportTest
+
+static def printSpotBugsReport(String sourceSet) {
+  def report = Paths.get("build/reports/spotbugs/${sourceSet}.text")
+  if (Files.exists(report)) {
+    def lines = Files.readAllLines(report)
+    lines.forEach { l -> println(l) }
+  }
 }
 
 // ###################################################################
@@ -221,7 +191,58 @@ lombok {
 // ###################################################################
 
 sonarqube {
-    properties {
-        property "sonar.projectKey", "falkoschumann_java-muspellheim-commons"
+  properties {
+    property "sonar.projectKey", "falkoschumann_java-muspellheim-commons"
+  }
+}
+
+// ###################################################################
+// Maven
+// ###################################################################
+
+publishing {
+  publications {
+    MuspellheimCommonsPublication(MavenPublication) {
+      from components.java
+      artifact sourcesJar
+      artifact javadocJar
+      groupId 'de.muspellheim'
+      artifactId project.name
+      version project.version
     }
+  }
+}
+
+// ###################################################################
+// Bintray
+// ###################################################################
+
+ext {
+  if (!project.hasProperty('bintrayUser')) {
+    bintrayUser = 'bintray_user'
+  }
+  if (!project.hasProperty('bintrayKey')) {
+    bintrayKey = 'bintray_key'
+  }
+}
+
+bintray {
+  user = bintrayUser
+  key = bintrayKey
+  publications = ['MuspellheimCommonsPublication']
+  dryRun = false
+  pkg {
+    repo = 'maven'
+    name = project.name
+    userOrg = bintrayUser
+    licenses = ['MIT']
+    vcsUrl = "https://github.com/falkoschumann/java-${project.name}.git"
+    githubRepo = "falkoschumann/java-${project.name}"
+    version {
+      name = project.version
+      desc = 'Bundles common classes for developing Java apps.'
+      released = new Date()
+      vcsTag = "v${project.version}"
+    }
+  }
 }

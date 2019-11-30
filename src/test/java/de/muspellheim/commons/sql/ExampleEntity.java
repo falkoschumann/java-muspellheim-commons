@@ -5,20 +5,18 @@
 
 package de.muspellheim.commons.sql;
 
-import java.time.*;
-
-import lombok.*;
+import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@SuppressWarnings("checkstyle:VisibilityModifier")
 public class ExampleEntity {
-
-    String familyName;
-    int age;
-    double weight;
-    boolean validPLZEntry;
-    LocalDateTime dayOfBirth;
-
+  String familyName;
+  int age;
+  double weight;
+  boolean validPlzEntry;
+  LocalDateTime dayOfBirth;
 }

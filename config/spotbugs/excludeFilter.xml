@@ -1,43 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FindBugsFilter
-        xmlns="https://github.com/spotbugs/filter/3.0.0"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="https://github.com/spotbugs/filter/3.0.0 https://raw.githubusercontent.com/spotbugs/spotbugs/3.1.0/spotbugs/etc/findbugsfilter.xsd">
+  xmlns="https://github.com/spotbugs/filter/3.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="https://github.com/spotbugs/filter/3.0.0 https://raw.githubusercontent.com/spotbugs/spotbugs/3.1.0/spotbugs/etc/findbugsfilter.xsd">
 
-    <!-- Setter: Allow string equality with == and != for performance reason. -->
-    <Match>
-        <Method name="~set.*"/>
-        <Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ"/>
-    </Match>
-    <Match>
-        <Method name="~with.*"/>
-        <Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ"/>
-    </Match>
+  <!-- Setter: Allow string equality with == and != for performance reason. -->
+  <Match>
+    <Method name="~set.*"/>
+    <Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ"/>
+  </Match>
+  <Match>
+    <Method name="~with.*"/>
+    <Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ"/>
+  </Match>
 
-    <!-- ResultSet: ignore false positive -->
-    <Match>
-        <Or>
-            <Class name="de.muspellheim.commons.sql.PostgresDatabaseTests"/>
-            <Class name="de.muspellheim.commons.sql.ResultSetMapperTests"/>
-            <Class name="de.muspellheim.commons.sql.BaseResultSetMapperTests"/>
-        </Or>
-        <Bug pattern="OBL_UNSATISFIED_OBLIGATION"/>
-    </Match>
-    <Match>
-        <Or>
-            <Class name="de.muspellheim.commons.sql.PostgresDatabaseTests"/>
-            <Class name="de.muspellheim.commons.sql.ResultSetMapperTests"/>
-            <Class name="de.muspellheim.commons.sql.BaseResultSetMapperTests"/>
-        </Or>
-        <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE"/>
-    </Match>
-
-    <Match>
-        <And>
-            <Class name="de.muspellheim.commons.sql.ResultSetMapper"/>
-            <Method name="getBoolean"/>
-        </And>
-        <Bug pattern="NP_BOOLEAN_RETURN_NULL"/>
-    </Match>
-
+  <!-- ResultSet: Ignore false positive. -->
+  <Match>
+    <And>
+      <Class name="de.muspellheim.commons.sql.ResultSetMapper"/>
+      <Method name="getBoolean"/>
+    </And>
+    <Bug pattern="NP_BOOLEAN_RETURN_NULL"/>
+  </Match>
+  <Match>
+    <Or>
+      <Class name="de.muspellheim.commons.sql.PostgresDatabaseTests"/>
+      <Class name="de.muspellheim.commons.sql.ResultSetMapperTests"/>
+      <Class name="de.muspellheim.commons.sql.BaseResultSetMapperTests"/>
+    </Or>
+    <Bug pattern="OBL_UNSATISFIED_OBLIGATION"/>
+  </Match>
+  <Match>
+    <Or>
+      <Class name="de.muspellheim.commons.sql.PostgresDatabaseTests"/>
+      <Class name="de.muspellheim.commons.sql.ResultSetMapperTests"/>
+      <Class name="de.muspellheim.commons.sql.BaseResultSetMapperTests"/>
+    </Or>
+    <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE"/>
+  </Match>
 </FindBugsFilter>

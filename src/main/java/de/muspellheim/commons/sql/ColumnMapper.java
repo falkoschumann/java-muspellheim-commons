@@ -5,7 +5,8 @@
 
 package de.muspellheim.commons.sql;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Map a column of result set to a value.
@@ -15,14 +16,13 @@ import java.sql.*;
 @FunctionalInterface
 public interface ColumnMapper<T> {
 
-    /**
-     * Map column to value.
-     *
-     * @param resultSet   a result set
-     * @param columnLabel column label to map
-     * @return the column value
-     * @throws SQLException if an error occurred
-     */
-    T map(ResultSet resultSet, String columnLabel) throws SQLException;
-
+  /**
+   * Map column to value.
+   *
+   * @param resultSet a result set
+   * @param columnLabel column label to map
+   * @return the column value
+   * @throws SQLException if an error occurred
+   */
+  T map(ResultSet resultSet, String columnLabel) throws SQLException;
 }

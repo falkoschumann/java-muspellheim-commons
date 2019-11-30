@@ -5,17 +5,15 @@
 
 package de.muspellheim.commons.sql;
 
-import javax.swing.*;
-
-import lombok.*;
+import javax.swing.JPanel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@SuppressWarnings("checkstyle:VisibilityModifier")
 public class BrokenEntity {
-
-    String text;
-    JPanel panel;
-
+  String text;
+  JPanel panel;
 }
