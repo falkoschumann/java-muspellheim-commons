@@ -17,7 +17,7 @@ public class PostgresDatabase {
 
   private final DatabaseConfiguration configuration;
 
-  private PGSimpleDataSource dataSource;
+  private DataSource dataSource;
 
   /**
    * Initialize with configuration.
@@ -35,13 +35,18 @@ public class PostgresDatabase {
    */
   public DataSource getDataSource() {
     if (dataSource == null) {
-      dataSource = new PGSimpleDataSource();
-      dataSource.setServerName(configuration.getHost());
-      dataSource.setPortNumber(configuration.getPort());
-      dataSource.setUser(configuration.getUser());
-      dataSource.setPassword(configuration.getPassword());
-      dataSource.setDatabaseName(configuration.getDatabase());
+      dataSource = createDataSource();
     }
     return dataSource;
+  }
+
+  private DataSource createDataSource() {
+    PGSimpleDataSource ds = new PGSimpleDataSource();
+    ds.setServerName(configuration.getHost());
+    ds.setPortNumber(configuration.getPort());
+    ds.setUser(configuration.getUser());
+    ds.setPassword(configuration.getPassword());
+    ds.setDatabaseName(configuration.getDatabase());
+    return ds;
   }
 }

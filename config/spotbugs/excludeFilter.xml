@@ -38,4 +38,11 @@
     </Or>
     <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE"/>
   </Match>
+  <Match>
+    <And>
+      <Class name="de.muspellheim.commons.sql.PostgresDatabaseTests"/>
+      <Method name="~.*Exception.*"/>
+    </And>
+    <Bug pattern="ODR_OPEN_DATABASE_RESOURCE"/>
+  </Match>
 </FindBugsFilter>

@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 *   Repository exceptions for connection and authorization.
+*   Base class for SQL based repository, which can check for default repository
+    exceptions.  
+
 ## [v2.1.0] - 2019-11-20
 
 ### Added

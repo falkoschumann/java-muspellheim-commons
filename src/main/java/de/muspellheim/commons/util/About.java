@@ -19,12 +19,8 @@ import lombok.Value;
 @RequiredArgsConstructor(staticName = "of")
 public class About {
 
-  private static final String ABOUT_VERSION = "about.version";
-  private static final String ABOUT_COPYRIGHT = "about.copyright";
-  private static final String ABOUT_RIGHTS = "about.rights";
-
   @Getter(AccessLevel.PRIVATE)
-  ResourceBundle resourceBundle = ResourceBundle.getBundle(About.class.getName());
+  ResourceBundle bundle = ResourceBundle.getBundle(About.class.getName());
 
   /**
    * The title of an application or a library.
@@ -103,10 +99,10 @@ public class About {
         title,
         version,
         MessageFormat.format(
-            resourceBundle.getString(ABOUT_COPYRIGHT),
+            resourceBundle.getString("about.copyright"),
             String.valueOf(copyrightYear),
             copyrightHolder),
-        resourceBundle.getString(ABOUT_RIGHTS));
+        resourceBundle.getString("about.rights"));
   }
 
   /**
@@ -115,7 +111,7 @@ public class About {
    * @return user readable text of version
    */
   public String getVersionText() {
-    return MessageFormat.format(resourceBundle.getString(ABOUT_VERSION), version);
+    return MessageFormat.format(bundle.getString("about.version"), version);
   }
 
   /** Print about information to standard out. */
