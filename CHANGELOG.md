@@ -7,11 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+*   Future for SQL queries.
+
 ## [v2.2.0] - 2019-12-01
 
 ### Added
 
-*   Future for SQL queries.
 *   Repository exceptions for connection and authorization.
 *   Base class for SQL based repository, which can check for default repository
     exceptions.  
