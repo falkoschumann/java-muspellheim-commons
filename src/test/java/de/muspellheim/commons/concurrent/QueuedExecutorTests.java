@@ -34,7 +34,7 @@ class QueuedExecutorTests {
     executor.execute(new Task(1, Duration.ofMillis(500)));
     executor.execute(new Task(2, Duration.ofMillis(300)));
     executor.execute(new Task(3, Duration.ofMillis(100)));
-    TimeUnit.MILLISECONDS.sleep(1200);
+    TimeUnit.MILLISECONDS.sleep(1400);
 
     // Then
     assertEquals(Arrays.asList(1, 2, 3), values);
