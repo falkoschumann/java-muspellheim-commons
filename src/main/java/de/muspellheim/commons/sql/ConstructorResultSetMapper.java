@@ -58,6 +58,10 @@ public class ConstructorResultSetMapper<T> extends ResultSetMapper<T> {
         String columnLabel = resultSet.getMetaData().getColumnLabel(i);
         String propertyName = propertyNameFor(columnLabel);
         Integer parameterIndex = mappedParameters.get(propertyName);
+        if (parameterIndex == null) {
+          throw new IllegalStateException("no mapped property found for column: " + columnLabel);
+        }
+
         Object value = mapColumn(resultSet, columnLabel);
         parameters[parameterIndex] = value;
       }

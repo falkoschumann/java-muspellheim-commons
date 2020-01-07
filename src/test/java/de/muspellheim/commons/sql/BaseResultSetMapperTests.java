@@ -78,12 +78,12 @@ abstract class BaseResultSetMapperTests {
   }
 
   @Test
-  void noMapper() {
+  void missingColumnMapper() {
     // When
     Throwable exception =
         assertThrows(
             NoSuchElementException.class,
-            () -> new ConstructorResultSetMapper<>(BrokenEntity.class));
+            () -> new ConstructorResultSetMapper<>(MissingColumnMapperEntity.class));
 
     // Then
     assertEquals("no column mapper found for: class javax.swing.JPanel", exception.getMessage());

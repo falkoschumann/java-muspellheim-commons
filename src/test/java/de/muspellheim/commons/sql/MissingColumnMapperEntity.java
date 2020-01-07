@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BrokenEntity {
+public class MissingColumnMapperEntity {
   String text;
   JPanel panel;
 }

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v2.3.1] - 2020-01-07
+
+### Fixed
+
+*   `ConstructorResultSetMapper` throws illegal state exception with helpful
+    message if constructor properties configuration missing, instead of thrown
+    null pointer exception.
+
 ## [v2.3.0] - 2019-12-08
 
 ### Added
